@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
 
 
 class Ui_Dialog(object):
@@ -35,12 +36,27 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+        self.browseButton.clicked.connect(self.browse)
+        self.runButton.clicked.connect(self.run)
+        self.cancelButton.clicked.connect(self.exit)
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.browseButton.setText(_translate("Dialog", "Browse"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
         self.runButton.setText(_translate("Dialog", "Run"))
+
+    def browse(self):
+        fname = QFileDialog.getOpenFileName(None, "Open file", r"C:\Users\joaob\OneDrive\Documents\Downloads")
+        self.lineEdit.setText(fname[0])
+
+
+    def run(self):
+        print("Running...")
+
+    def exit(self):
+        exit()
 
 
 if __name__ == "__main__":
