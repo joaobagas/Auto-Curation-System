@@ -10,6 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from view import load_training_dialog, load_video_dialog, upload_dialog
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -66,6 +68,11 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.exitButton.clicked.connect(self.on_click_exit)
+        self.trainButton.clicked.connect(self.on_click_train)
+        self.runButton.clicked.connect(self.on_click_run)
+        self.uploadButton.clicked.connect(self.on_click_upload)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -80,6 +87,26 @@ class Ui_MainWindow(object):
         self.previousObsButton.setText(_translate("MainWindow", "Previous obs."))
         self.rejectButton.setText(_translate("MainWindow", "Reject"))
 
+    def on_click_exit(self):
+        exit()
+
+    def on_click_train(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = load_training_dialog.Ui_Dialog()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def on_click_run(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = load_video_dialog.Ui_Dialog()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def on_click_upload(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = upload_dialog.Ui_Dialog()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
 if __name__ == "__main__":
     import sys
