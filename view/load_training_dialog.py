@@ -51,7 +51,6 @@ class Ui_Dialog(object):
         fname = QFileDialog.getOpenFileName(None, "Open file", r"C:\Users\joaob\OneDrive\Documents\Downloads")
         self.lineEdit.setText(fname[0])
 
-
     def train(self):
         print("Training...")
 

@@ -73,6 +73,15 @@ class Ui_MainWindow(object):
         self.runButton.clicked.connect(self.on_click_run)
         self.uploadButton.clicked.connect(self.on_click_upload)
 
+        self.previousObsButton.clicked.connect(self.on_click_previousObsButton)
+        self.nextObsButton.clicked.connect(self.on_click_nextObsButton)
+        self.backArrowButton.clicked.connect(self.on_click_backArrowButton)
+        self.forwardArrowButton.clicked.connect(self.on_click_forwardArrowButton)
+
+        self.rejectButton.clicked.connect(self.on_click_rejectButton)
+        self.deleteImageButton.clicked.connect(self.on_click_deleteImageButton)
+
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -107,6 +116,27 @@ class Ui_MainWindow(object):
         self.ui = upload_dialog.Ui_Dialog()
         self.ui.setupUi(self.window)
         self.window.show()
+
+    # These functions can only be properly implemented after having the frame clipping code.
+
+    def on_click_previousObsButton(self):
+        print("Previous observation!")
+
+    def on_click_nextObsButton(self):
+        print("Next observation!")
+
+    def on_click_backArrowButton(self):
+        print("Previous photo!")
+
+    def on_click_forwardArrowButton(self):
+        print("Next photo!")
+
+    def on_click_rejectButton(self):
+        print("Observation rejected!")
+
+    def on_click_deleteImageButton(self):
+        print("Photo deleted!")
+
 
 if __name__ == "__main__":
     import sys
