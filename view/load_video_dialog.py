@@ -11,6 +11,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 
+from model import video_cropper
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -53,7 +55,7 @@ class Ui_Dialog(object):
 
 
     def run(self):
-        print("Running...")
+        video_cropper.crop(self.lineEdit.text(), "Test", 1000)
 
     def exit(self):
         exit()
