@@ -10,6 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from model import inaturalist_api
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -37,6 +39,9 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+        self.loginButton.clicked.connect(self.login)
+        self.cancelButton.clicked.connect(self.exit)
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
@@ -44,6 +49,13 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Password"))
         self.loginButton.setText(_translate("Dialog", "Login"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
+
+    def login(self):
+        print("Username: " + self.usernameLineEdit.text() + " | Password: " + self.passwordLineEdit_2.text())
+        inaturalist_api.login(self.usernameLineEdit.text(), self.passwordLineEdit_2.text())
+
+    def exit(self):
+        exit()
 
 
 if __name__ == "__main__":
