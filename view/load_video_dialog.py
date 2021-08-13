@@ -40,7 +40,7 @@ class Ui_Dialog(object):
 
         self.browseButton.clicked.connect(self.browse)
         self.runButton.clicked.connect(self.run)
-        self.cancelButton.clicked.connect(exit)
+        self.cancelButton.clicked.connect(Dialog.close)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate

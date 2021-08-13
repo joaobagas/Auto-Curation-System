@@ -41,7 +41,7 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.loginButton.clicked.connect(self.login)
-        self.cancelButton.clicked.connect(exit)
+        self.cancelButton.clicked.connect(Dialog.close)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
