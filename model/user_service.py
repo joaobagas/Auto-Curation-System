@@ -1,21 +1,19 @@
 class UserService(object):
-    __instance = None
+    _instance = None
     access_token = None
     username = None
 
-    @staticmethod
-    def get_instance():
-        if UserService.__instance is None:
-            UserService()
-        return UserService.__instance
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(UserService, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
 
-    def __init__(self):
-        # Virtually private constructor.
-        if UserService.__instance is not None:
-            raise Exception("This class is a singleton!")
-        else:
-            UserService.__instance = self
-
-    def set_user_details(self, access_token, username):
-        self.access_token = access_token
+    def set_user_info(self, username, access_token):
         self.username = username
+        self.access_token = access_token
+
+    def get_username(self):
+        return self.username
+
+    def get_access_token(self):
+        return self.access_token

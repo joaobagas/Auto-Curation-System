@@ -10,7 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from model import inaturalist_api
+from model import inaturalist_api, user_service
+from model.user_service import UserService
 
 
 class Ui_Dialog(object):
@@ -53,6 +54,7 @@ class Ui_Dialog(object):
     def login(self):
         print("Username: " + self.usernameLineEdit.text() + " | Password: " + self.passwordLineEdit_2.text())
         inaturalist_api.login(self.usernameLineEdit.text(), self.passwordLineEdit_2.text())
+        print(UserService.__new__(UserService).get_access_token())
 
     def exit(self):
         exit()

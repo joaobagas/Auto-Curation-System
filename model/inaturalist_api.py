@@ -4,6 +4,7 @@ import requests
 
 from domain.observation import Observation
 from model import user_service
+from model.user_service import UserService
 
 url = "https://www.inaturalist.org"
 app_id = "b974e28242fd352e2fc32defab55390e7580f0ac36d4e7bd23957d8e1f05e55a"
@@ -20,7 +21,8 @@ def login(username, password):
     }
     response = requests.post(("%s/oauth/token" % url), payload)
     data = json.loads(response.content)
-    user_service.UserService.set_user_details(data["access_token"], username)
+    UserService.__new__(UserService).set_user_info(username, data["access_token"])
+
 
 def post_observation(obs):
     requests.post(url + "/observation", allow_redirects=False, data={
