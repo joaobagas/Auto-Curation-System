@@ -41,7 +41,7 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.loginButton.clicked.connect(self.login)
-        self.cancelButton.clicked.connect(self.exit)
+        self.cancelButton.clicked.connect(exit)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -55,9 +55,6 @@ class Ui_Dialog(object):
         print("Username: " + self.usernameLineEdit.text() + " | Password: " + self.passwordLineEdit_2.text())
         inaturalist_api.login(self.usernameLineEdit.text(), self.passwordLineEdit_2.text())
         print(UserService.__new__(UserService).get_access_token())
-
-    def exit(self):
-        exit()
 
 
 if __name__ == "__main__":

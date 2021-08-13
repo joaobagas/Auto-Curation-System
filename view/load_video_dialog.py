@@ -40,7 +40,7 @@ class Ui_Dialog(object):
 
         self.browseButton.clicked.connect(self.browse)
         self.runButton.clicked.connect(self.run)
-        self.cancelButton.clicked.connect(self.exit)
+        self.cancelButton.clicked.connect(exit)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -55,10 +55,7 @@ class Ui_Dialog(object):
 
 
     def run(self):
-        video_cropper.crop(self.lineEdit.text(), "Test", 1000)
-
-    def exit(self):
-        exit()
+        video_cropper.crop(self.lineEdit.text(), "Test", [1000, 1005])
 
 
 if __name__ == "__main__":

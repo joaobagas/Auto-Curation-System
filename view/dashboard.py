@@ -68,7 +68,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.exitButton.clicked.connect(self.on_click_exit)
+        self.exitButton.clicked.connect(exit)
         self.trainButton.clicked.connect(self.on_click_train)
         self.runButton.clicked.connect(self.on_click_run)
         self.uploadButton.clicked.connect(self.on_click_upload)
@@ -95,9 +95,6 @@ class Ui_MainWindow(object):
         self.uploadButton.setText(_translate("MainWindow", "Upload"))
         self.previousObsButton.setText(_translate("MainWindow", "Previous obs."))
         self.rejectButton.setText(_translate("MainWindow", "Reject"))
-
-    def on_click_exit(self):
-        exit()
 
     def on_click_train(self):
         self.window = QtWidgets.QMainWindow()

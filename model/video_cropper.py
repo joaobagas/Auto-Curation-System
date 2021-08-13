@@ -1,7 +1,7 @@
 import cv2
 
 
-def crop(location, obs, time):
+def crop(location, obs, times):
     cap = cv2.VideoCapture(location)
 
     # Set frame_no in range 0.0-1.0
@@ -10,15 +10,15 @@ def crop(location, obs, time):
     # time_length = 30.0
     # fps = 25
     # frame_seq = 749
-    # frame_no = (frame_seq / (time_length * fps))
-
-    cap.set(1, time)
-    ret, frame = cap.read()
-    if ret:
-        cv2.imshow("frame", frame)
-        cv2.waitKey()
-        cv2.imwrite(obs + "-acs-" + str(time) + ".jpg", frame)
-    else:
-        print("There was an error loading the frame!")
+    # time = (frame_seq / (time_length * fps))
+    for time in times:
+        cap.set(1, time)
+        ret, frame = cap.read()
+        if ret:
+            cv2.imshow("frame", frame)
+            cv2.waitKey()
+            cv2.imwrite(obs + "-acs-" + str(time) + ".jpg", frame)
+        else:
+            print("There was an error loading the frame!")
     cap.release()
     cv2.destroyAllWindows()
