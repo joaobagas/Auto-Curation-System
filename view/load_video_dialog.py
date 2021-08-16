@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 
-from model import video_cropper
+from model import video_cropper, image_loader
 
 
 class Ui_Dialog(object):
@@ -53,9 +53,10 @@ class Ui_Dialog(object):
         fname = QFileDialog.getOpenFileName(None, "Open file", r"C:\Users\joaob\OneDrive\Documents\Downloads")
         self.lineEdit.setText(fname[0])
 
-
     def run(self):
         video_cropper.crop(self.lineEdit.text(), "Test", [1000, 1005])
+        image_loader.ImageLoader.__new__(image_loader.ImageLoader).load()
+        self.cancelButton.click()
 
 
 if __name__ == "__main__":

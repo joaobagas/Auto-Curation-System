@@ -17,8 +17,6 @@ def crop(location, obs, times):
         cap.set(1, time)
         ret, frame = cap.read()
         if ret:
-            cv2.imshow("frame", frame)
-            cv2.waitKey()
             cv2.imwrite("img/observations/" + obs + "-acs-" + str(time) + ".jpg", frame)
         else:
             print("There was an error loading the frame!")

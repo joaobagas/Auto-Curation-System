@@ -41,8 +41,12 @@ class ImageLoader(object):
 
     def delete_photo(self):
         self.images.pop(self.pointer)
+        os.remove(self.current_image)
         if self.pointer > len(self.images) - 1:
             self.pointer -= 1
-        self.current_image = self.images[self.pointer]
+        if len(self.images) == 0:
+            self.pointer = -1
+            self.current_image = 'img/black_image.jpg'
+        else:
+            self.current_image = self.images[self.pointer]
         return self.current_image
-    
