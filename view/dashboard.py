@@ -126,18 +126,16 @@ class Ui_MainWindow(object):
         print("Next observation!")
 
     def on_click_backArrowButton(self):
-        print("Previous photo!")
         self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_photo()))
 
     def on_click_forwardArrowButton(self):
-        print("Next photo!")
         self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).next_photo()))
 
     def on_click_rejectButton(self):
         print("Observation rejected!")
 
     def on_click_deleteImageButton(self):
-        print("Photo deleted!")
+        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).delete_photo()))
 
 
 if __name__ == "__main__":

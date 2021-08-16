@@ -37,8 +37,12 @@ class ImageLoader(object):
         elif self.images != [] and self.pointer < len(self.images) - 1:
             self.pointer += 1
             self.current_image = self.images[self.pointer]
-        print(self.current_image)
         return self.current_image
 
     def delete_photo(self):
-        print("Photo deleted!")
+        self.images.pop(self.pointer)
+        if self.pointer > len(self.images) - 1:
+            self.pointer -= 1
+        self.current_image = self.images[self.pointer]
+        return self.current_image
+    
