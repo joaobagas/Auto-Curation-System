@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from model import image_loader
 from view import load_training_dialog, load_video_dialog, upload_dialog
 
 
@@ -81,6 +82,8 @@ class Ui_MainWindow(object):
         self.rejectButton.clicked.connect(self.on_click_rejectButton)
         self.deleteImageButton.clicked.connect(self.on_click_deleteImageButton)
 
+        image_loader.ImageLoader.__new__(image_loader.ImageLoader).load()
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -124,9 +127,11 @@ class Ui_MainWindow(object):
 
     def on_click_backArrowButton(self):
         print("Previous photo!")
+        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_photo()))
 
     def on_click_forwardArrowButton(self):
         print("Next photo!")
+        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).next_photo()))
 
     def on_click_rejectButton(self):
         print("Observation rejected!")

@@ -1,5 +1,7 @@
 import cv2
 
+from model import image_loader
+
 
 def crop(location, obs, times):
     cap = cv2.VideoCapture(location)
