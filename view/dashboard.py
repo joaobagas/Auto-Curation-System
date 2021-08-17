@@ -117,13 +117,11 @@ class Ui_MainWindow(object):
         self.ui.setupUi(self.window)
         self.window.show()
 
-    # These functions can only be properly implemented after having the frame clipping code.
-
     def on_click_previousObsButton(self):
-        print("Previous observation!")
+        image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_obs()
 
     def on_click_nextObsButton(self):
-        print("Next observation!")
+        image_loader.ImageLoader.__new__(image_loader.ImageLoader).next_obs()
 
     def on_click_backArrowButton(self):
         self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_photo()))
@@ -132,7 +130,7 @@ class Ui_MainWindow(object):
         self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).next_photo()))
 
     def on_click_rejectButton(self):
-        print("Observation rejected!")
+        image_loader.ImageLoader.__new__(image_loader.ImageLoader).delete_obs()
 
     def on_click_deleteImageButton(self):
         self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).delete_photo()))
