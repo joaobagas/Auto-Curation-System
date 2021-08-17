@@ -118,10 +118,10 @@ class Ui_MainWindow(object):
         self.window.show()
 
     def on_click_previousObsButton(self):
-        image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_obs()
+        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_obs()))
 
     def on_click_nextObsButton(self):
-        image_loader.ImageLoader.__new__(image_loader.ImageLoader).next_obs()
+        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).next_obs()))
 
     def on_click_backArrowButton(self):
         self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_photo()))

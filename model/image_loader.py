@@ -38,6 +38,7 @@ class ImageLoader(object):
             root = fn3[0]
             if root == self.observations[self.obs_pointer]:
                 self.obs_images.append(filename)
+        self.obs_images_pointer = -1
 
     def prev_obs(self):
         if self.observations != [] and self.obs_pointer == -1:
@@ -47,6 +48,9 @@ class ImageLoader(object):
             self.obs_pointer -= 1
             self.current_observation = self.observations[self.obs_pointer]
         self.load_obs()
+        self.current_image = self.obs_images[self.obs_images_pointer]
+        return self.current_image
+
 
     def next_obs(self):
         if self.observations != [] and self.obs_pointer == -1:
@@ -56,6 +60,8 @@ class ImageLoader(object):
             self.obs_pointer += 1
             self.current_observation = self.observations[self.obs_pointer]
         self.load_obs()
+        self.current_image = self.obs_images[self.obs_images_pointer]
+        return self.current_image
 
     def delete_obs(self):
         self.observations.pop(self.obs_pointer)
