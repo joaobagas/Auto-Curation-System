@@ -40,6 +40,9 @@ class ImageLoader(object):
                 self.obs_images.append(filename)
         self.obs_images_pointer = -1
 
+    def get_obs(self):
+        return self.current_observation
+
     def prev_obs(self):
         if self.observations != [] and self.obs_pointer == -1:
             self.obs_pointer = 0
@@ -48,7 +51,8 @@ class ImageLoader(object):
             self.obs_pointer -= 1
             self.current_observation = self.observations[self.obs_pointer]
         self.load_obs()
-        self.current_image = self.obs_images[self.obs_images_pointer]
+        if self.obs_images:
+            self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
 
 
@@ -60,7 +64,8 @@ class ImageLoader(object):
             self.obs_pointer += 1
             self.current_observation = self.observations[self.obs_pointer]
         self.load_obs()
-        self.current_image = self.obs_images[self.obs_images_pointer]
+        if self.obs_images:
+            self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
 
     def delete_obs(self):
