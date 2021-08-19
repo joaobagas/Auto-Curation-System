@@ -55,7 +55,8 @@ class Ui_Dialog(object):
         self.lineEdit.setText(fname[0])
 
     def run(self):
-        video_cropper.crop(self.lineEdit.text(), "Test", [1000, 1005])
+        video_cropper.crop(self.lineEdit.text(), "1.Lion", [1000, 1005])
+        video_cropper.crop(self.lineEdit.text(), "2.Giraffe", [1020, 1030])
         ImageLoader.__new__(ImageLoader).load()
         self.cancelButton.click()
 

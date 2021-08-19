@@ -12,6 +12,7 @@ import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
+from model import inaturalist_api
 from view import login_dialog
 from model.user_service import UserService
 from domain.observation import Observation
@@ -123,9 +124,16 @@ class Ui_Dialog(object):
             msg.setWindowTitle("Error")
             msg.exec_()
         else:
-            print("Uploaded!")
             obs = Observation()
-            obs.species_guess = self.nameLineEdit
+            obs.species_guess = self.nameLineEdit.text()
+            obs.taxon_id = self.taxonIDLineEdit.text()
+            obs.observed_on_string = self.observedOnDateTime.text()
+            obs.time_zone = self.timezoneLineEdit.text()
+            obs.place_guess = self.placeLineEdit.text()
+            obs.latitude = self.latitudeLineEdit.text()
+            obs.longitude = self.longitudeLineEdit.text()
+            obs.description = self.descriptionTextEdit.toPlainText()
+            inaturalist_api.post_observation(obs)
 
 
 if __name__ == "__main__":

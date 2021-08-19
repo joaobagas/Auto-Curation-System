@@ -26,8 +26,6 @@ def login(username, password):
 
 
 def post_observation(obs):
-
-
     requests.post(url + "/observation", allow_redirects=False, data={
         "species_guess": obs.species_guess,
         "taxon_id": obs.taxon_id,
