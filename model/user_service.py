@@ -1,3 +1,7 @@
+# This class holds the information of regarding the current user.
+# The singleton pattern was used so this class is instantiated only once.
+
+
 class UserService(object):
     _instance = None
     access_token = None

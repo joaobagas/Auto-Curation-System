@@ -12,8 +12,9 @@ import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from model import user_service
 from view import login_dialog
+from model.user_service import UserService
+from domain.observation import Observation
 
 
 class Ui_Dialog(object):
@@ -115,7 +116,7 @@ class Ui_Dialog(object):
         self.window.show()
 
     def upload(self):
-        if user_service.UserService.__new__(user_service.UserService).get_username() is None:
+        if UserService.__new__(UserService).get_username() is None:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
             msg.setText("Error: User not logged in!")
@@ -123,6 +124,9 @@ class Ui_Dialog(object):
             msg.exec_()
         else:
             print("Uploaded!")
+            obs = Observation()
+            obs.species_guess = self.nameLineEdit
+
 
 if __name__ == "__main__":
     import sys

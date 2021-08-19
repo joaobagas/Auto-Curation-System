@@ -1,6 +1,6 @@
-import cv2
+# This file holds the function which is used to crop frames off a video and save them.
 
-from model import image_loader
+import cv2
 
 
 def crop(location, obs, times):

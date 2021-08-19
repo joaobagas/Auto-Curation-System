@@ -11,7 +11,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 
-from model import video_cropper, image_loader
+from model import video_cropper
+from model.image_loader import ImageLoader
 
 
 class Ui_Dialog(object):
@@ -55,7 +56,7 @@ class Ui_Dialog(object):
 
     def run(self):
         video_cropper.crop(self.lineEdit.text(), "Test", [1000, 1005])
-        image_loader.ImageLoader.__new__(image_loader.ImageLoader).load()
+        ImageLoader.__new__(ImageLoader).load()
         self.cancelButton.click()
 
 

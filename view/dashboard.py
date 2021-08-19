@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from model import image_loader
+from model.image_loader import ImageLoader
 from view import load_training_dialog, load_video_dialog, upload_dialog
 
 
@@ -118,24 +118,26 @@ class Ui_MainWindow(object):
         self.window.show()
 
     def on_click_previousObsButton(self):
-        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_obs()))
-        self.nameLineEdit.setText(image_loader.ImageLoader.__new__(image_loader.ImageLoader).get_obs())
+        self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).prev_obs()))
+        self.nameLineEdit.setText(ImageLoader.__new__(ImageLoader).get_obs())
 
     def on_click_nextObsButton(self):
-        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).next_obs()))
-        self.nameLineEdit.setText(image_loader.ImageLoader.__new__(image_loader.ImageLoader).get_obs())
+        self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).next_obs()))
+        self.nameLineEdit.setText(ImageLoader.__new__(ImageLoader).get_obs())
 
     def on_click_backArrowButton(self):
-        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).prev_photo()))
+        self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).prev_photo()))
+        self.nameLineEdit.setText(ImageLoader.__new__(ImageLoader).get_obs())
 
     def on_click_forwardArrowButton(self):
-        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).next_photo()))
+        self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).next_photo()))
+        self.nameLineEdit.setText(ImageLoader.__new__(ImageLoader).get_obs())
 
     def on_click_rejectButton(self):
-        image_loader.ImageLoader.__new__(image_loader.ImageLoader).delete_obs()
+        ImageLoader.__new__(ImageLoader).delete_obs()
 
     def on_click_deleteImageButton(self):
-        self.imageView.setPixmap(QtGui.QPixmap(image_loader.ImageLoader.__new__(image_loader.ImageLoader).delete_photo()))
+        self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).delete_photo()))
 
 
 if __name__ == "__main__":

@@ -1,3 +1,6 @@
+# This class holds the information of regarding which image and observation is being seen.
+# The singleton pattern was used so this class is instantiated only once.
+
 import os
 
 

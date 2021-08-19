@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from model import inaturalist_api, user_service
+from model import inaturalist_api
 from model.user_service import UserService
 
 

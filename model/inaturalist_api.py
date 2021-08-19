@@ -1,9 +1,9 @@
+# This files holds all the API calls needed for the system to work and the information necessary to perform them.
+
 import json
 
 import requests
 
-from domain.observation import Observation
-from model import user_service
 from model.user_service import UserService
 
 url = "https://www.inaturalist.org"
