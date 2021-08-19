@@ -19,12 +19,15 @@ def login(username, password):
         'username': username,
         'password': password
     }
-    response = requests.post(("%s/oauth/token" % url), payload)
-    data = json.loads(response.content)
-    UserService.__new__(UserService).set_user_info(username, data["access_token"])
+    response = requests.post((url + "/oauth/token"), payload)
+    if response.status_code == 200:
+        data = json.loads(response.content)
+        UserService.__new__(UserService).set_user_info(username, data["access_token"])
 
 
 def post_observation(obs):
+
+
     requests.post(url + "/observation", allow_redirects=False, data={
         "species_guess": obs.species_guess,
         "taxon_id": obs.taxon_id,
@@ -43,4 +46,4 @@ def post_observation(obs):
         "picasa_photos": obs.picasa_photos,
         "facebook_photos": obs.facebook_photos,
         "local_photos": obs.local_photos
-    })
+    }, auth=UserService.__new__(UserService).get_access_token())

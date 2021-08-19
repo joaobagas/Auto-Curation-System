@@ -82,7 +82,7 @@ class Ui_MainWindow(object):
         self.rejectButton.clicked.connect(self.on_click_rejectButton)
         self.deleteImageButton.clicked.connect(self.on_click_deleteImageButton)
 
-        image_loader.ImageLoader.__new__(image_loader.ImageLoader).load()
+        ImageLoader.__new__(ImageLoader).load()
 
 
     def retranslateUi(self, MainWindow):

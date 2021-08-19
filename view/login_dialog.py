@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QLineEdit, QMessageBox
 
 from model import inaturalist_api
 from model.user_service import UserService
@@ -43,6 +44,8 @@ class Ui_Dialog(object):
         self.loginButton.clicked.connect(self.login)
         self.cancelButton.clicked.connect(Dialog.close)
 
+        self.passwordLineEdit_2.setEchoMode(QLineEdit.Password)
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
@@ -52,9 +55,15 @@ class Ui_Dialog(object):
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
 
     def login(self):
-        print("Username: " + self.usernameLineEdit.text() + " | Password: " + self.passwordLineEdit_2.text())
         inaturalist_api.login(self.usernameLineEdit.text(), self.passwordLineEdit_2.text())
-        print(UserService.__new__(UserService).get_access_token())
+        if UserService.__new__(UserService).get_access_token() is not None:
+            self.cancelButton.click()
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Error: Try logging in with different credentials!")
+            msg.setWindowTitle("Error")
+            msg.exec_()
 
 
 if __name__ == "__main__":
