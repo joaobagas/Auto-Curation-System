@@ -21,7 +21,7 @@ class ImageLoader(object):
         return cls._instance
 
     def load(self):
-        directory = r'img\observations'
+        directory = 'img/observations'
         for filename in os.listdir(directory):
             if filename.endswith(".jpg"):
                 self.images.append(directory+"/"+filename)
@@ -58,7 +58,6 @@ class ImageLoader(object):
             self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
 
-
     def next_obs(self):
         if self.observations != [] and self.obs_pointer == -1:
             self.obs_pointer = 0
@@ -73,7 +72,8 @@ class ImageLoader(object):
 
     def delete_obs(self):
         self.observations.pop(self.obs_pointer)
-        os.remove(self.current_image)
+        for image in self.obs_images:
+            os.remove(image)
         if self.obs_pointer > len(self.observations) - 1:
             self.obs_pointer -= 1
         if len(self.obs_pointer) == 0:
@@ -96,13 +96,13 @@ class ImageLoader(object):
         if self.obs_images != [] and self.obs_images_pointer  == -1:
             self.obs_images_pointer = 0
             self.current_image = self.obs_images[self.obs_images_pointer]
-        elif self.obs_images != [] and self.obs_images_pointer  < len(self.obs_images) - 1:
+        elif self.obs_images != [] and self.obs_images_pointer < len(self.obs_images) - 1:
             self.obs_images_pointer += 1
             self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
 
     def delete_photo(self):
-        self.obs_images.pop(self.obs_images_pointer )
+        self.obs_images.pop(self.obs_images_pointer)
         os.remove(self.current_image)
         if self.obs_images_pointer > len(self.obs_images) - 1:
             self.obs_images_pointer -= 1
