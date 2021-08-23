@@ -34,6 +34,7 @@ class Ui_Dialog(object):
         # self.widget = QtWidgets.QWidget(Dialog)
         self.widget = QMediaPlayer(None, QMediaPlayer.VideoSurface)
         # self.widget.setGeometry(QtCore.QRect(10, 10, 591, 321))
+        self.widget.set
         self.widget.setObjectName("widget")
         self.cancelButton = QtWidgets.QPushButton(Dialog)
         self.cancelButton.setGeometry(QtCore.QRect(530, 370, 71, 23))
