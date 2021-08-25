@@ -1,10 +1,12 @@
 # This file holds the function which is used to crop frames off a video and save them.
 
-import cv2
 
 
 def crop(location, obs, times):
-    cap = cv2.VideoCapture(location)
+    # The imports had to be placed inside of the function due to incompatibilities between PyQt5 and Open-CV
+    from cv2 import VideoCapture, imwrite, destroyAllWindows
+
+    cap = VideoCapture(location)
 
     # Set frame_no in range 0.0-1.0
     # In this example we have a video of 30 seconds having 25 frames per seconds, thus we have 750 frames.
@@ -17,8 +19,8 @@ def crop(location, obs, times):
         cap.set(1, time)
         ret, frame = cap.read()
         if ret:
-            cv2.imwrite("img/observations/" + obs + "-acs-" + str(time) + ".jpg", frame)
+            imwrite("img/observations/" + obs + "-acs-" + str(time) + ".jpg", frame)
         else:
             print("There was an error loading the frame!")
     cap.release()
-    cv2.destroyAllWindows()
+    destroyAllWindows()

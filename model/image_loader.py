@@ -22,6 +22,7 @@ class ImageLoader(object):
 
     def load(self):
         directory = 'img/observations'
+        print(os.listdir(directory))
         for filename in os.listdir(directory):
             if filename.endswith(".jpg"):
                 self.images.append(directory+"/"+filename)
@@ -30,13 +31,14 @@ class ImageLoader(object):
                     self.observations.append(strings[0])
             else:
                 continue
+        print(self.images)
         self.load_obs()
 
     def load_obs(self):
         self.obs_images = []
         for filename in self.images:
             fn = filename.split("/")
-            fn2 = fn[1]
+            fn2 = fn[2]
             fn3 = fn2.split("-")
             root = fn3[0]
             if root == self.observations[self.obs_pointer]:
@@ -56,6 +58,8 @@ class ImageLoader(object):
         self.load_obs()
         if self.obs_images:
             self.current_image = self.obs_images[self.obs_images_pointer]
+        print(self.images)
+        print(self.obs_images)
         return self.current_image
 
     def next_obs(self):
