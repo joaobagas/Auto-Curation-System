@@ -34,7 +34,7 @@ class Ui_Dialog(object):
         # self.widget = QtWidgets.QWidget(Dialog)
         self.widget = QMediaPlayer(None, QMediaPlayer.VideoSurface)
         # self.widget.setGeometry(QtCore.QRect(10, 10, 591, 321))
-        self.widget.set
+        #self.widget.set
         self.widget.setObjectName("widget")
         self.cancelButton = QtWidgets.QPushButton(Dialog)
         self.cancelButton.setGeometry(QtCore.QRect(530, 370, 71, 23))
@@ -51,7 +51,7 @@ class Ui_Dialog(object):
         self.cancelButton.clicked.connect(Dialog.close)
 
         self.widget.setMedia(
-            QMediaContent(QUrl.fromLocalFile("C:/Users/joaob/OneDrive/Desktop/Reisha and Stacey ft James Daniels.mp4")))
+            QMediaContent(QUrl.fromLocalFile("/run/user/1000/doc/3248d1d4/Arrdee 2.0 - Fat Body (480p).mp4")))
 
     def playPause(self):
         if self.isPlaying is False:

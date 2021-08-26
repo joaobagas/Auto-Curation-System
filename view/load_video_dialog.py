@@ -39,6 +39,7 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+        self.files = []
         self.browseButton.clicked.connect(self.browse)
         self.runButton.clicked.connect(self.run)
         self.cancelButton.clicked.connect(Dialog.close)
@@ -51,12 +52,19 @@ class Ui_Dialog(object):
         self.runButton.setText(_translate("Dialog", "Run"))
 
     def browse(self):
-        fname = QFileDialog.getOpenFileName(None, "Open file", r"C:\Users\joaob\OneDrive\Documents\Downloads")
-        self.lineEdit.setText(fname[0])
+        files = QFileDialog.getOpenFileNames(None, None, '', 'Media file(*.mp4 *.wmv *.avi *.3gp *.oog *.mpeg *.mp2 '
+                                                             '*.wma *.mp3);;All files(*.*)')
+        fname = ""
+        for file in files[0]:
+            if fname != "":
+                fname += "###"
+            fname += file
+        self.lineEdit.setText(fname)
+        self.files = files[0]
 
     def run(self):
-        video_cropper.crop(self.lineEdit.text(), "1.Lion", [1000, 1005])
-        video_cropper.crop(self.lineEdit.text(), "2.Giraffe", [1020, 1030])
+        video_cropper.crop(self.files[0], "1.Lion", [1000, 1005])
+        video_cropper.crop(self.files[1], "2.Giraffe", [1020, 1030])
         ImageLoader.__new__(ImageLoader).load()
         self.cancelButton.click()
 

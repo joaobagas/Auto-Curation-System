@@ -31,7 +31,6 @@ class ImageLoader(object):
                     self.observations.append(strings[0])
             else:
                 continue
-        print(self.images)
         self.load_obs()
 
     def load_obs(self):
@@ -58,8 +57,6 @@ class ImageLoader(object):
         self.load_obs()
         if self.obs_images:
             self.current_image = self.obs_images[self.obs_images_pointer]
-        print(self.images)
-        print(self.obs_images)
         return self.current_image
 
     def next_obs(self):
