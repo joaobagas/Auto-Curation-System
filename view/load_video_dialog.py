@@ -18,7 +18,7 @@ from model.image_loader import ImageLoader
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(385, 111)
+        Dialog.resize(385, 123)
         self.lineEdit = QtWidgets.QLineEdit(Dialog)
         self.lineEdit.setGeometry(QtCore.QRect(10, 10, 291, 20))
         self.lineEdit.setObjectName("lineEdit")
@@ -30,11 +30,17 @@ class Ui_Dialog(object):
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
         self.cancelButton = QtWidgets.QPushButton(Dialog)
-        self.cancelButton.setGeometry(QtCore.QRect(310, 80, 71, 23))
+        self.cancelButton.setGeometry(QtCore.QRect(310, 90, 71, 23))
         self.cancelButton.setObjectName("cancelButton")
         self.runButton = QtWidgets.QPushButton(Dialog)
-        self.runButton.setGeometry(QtCore.QRect(230, 80, 71, 23))
+        self.runButton.setGeometry(QtCore.QRect(230, 90, 71, 23))
         self.runButton.setObjectName("runButton")
+        self.playButton = QtWidgets.QPushButton(Dialog)
+        self.playButton.setGeometry(QtCore.QRect(10, 90, 71, 23))
+        self.playButton.setObjectName("playButton")
+        self.statusLabel = QtWidgets.QLabel(Dialog)
+        self.statusLabel.setGeometry(QtCore.QRect(10, 70, 371, 16))
+        self.statusLabel.setObjectName("StatusLabel")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -50,6 +56,8 @@ class Ui_Dialog(object):
         self.browseButton.setText(_translate("Dialog", "Browse"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
         self.runButton.setText(_translate("Dialog", "Run"))
+        self.playButton.setText(_translate("Dialog", "Play"))
+        self.statusLabel.setText(_translate("Dialog", "Status:"))
 
     def browse(self):
         files = QFileDialog.getOpenFileNames(None, None, '', 'Media file(*.mp4 *.wmv *.avi *.3gp *.oog *.mpeg *.mp2 '
