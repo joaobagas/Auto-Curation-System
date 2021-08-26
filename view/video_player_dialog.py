@@ -10,8 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QUrl
-from PyQt5.QtMultimedia import QMediaContent, QMediaObject, QMediaPlayer
-from PyQt5.QtMultimediaWidgets import QVideoWidget
+from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 
 
 class Ui_Dialog(object):
@@ -23,43 +22,59 @@ class Ui_Dialog(object):
         self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalSlider.setObjectName("horizontalSlider")
         self.playPauseButton = QtWidgets.QPushButton(Dialog)
-        self.playPauseButton.setGeometry(QtCore.QRect(290, 360, 31, 31))
+        self.playPauseButton.setGeometry(QtCore.QRect(280, 360, 51, 31))
         self.playPauseButton.setObjectName("playPauseButton")
         self.backwardButton = QtWidgets.QPushButton(Dialog)
-        self.backwardButton.setGeometry(QtCore.QRect(250, 360, 31, 31))
+        self.backwardButton.setGeometry(QtCore.QRect(240, 360, 31, 31))
         self.backwardButton.setObjectName("backwardButton")
         self.forwardButton = QtWidgets.QPushButton(Dialog)
-        self.forwardButton.setGeometry(QtCore.QRect(330, 360, 31, 31))
+        self.forwardButton.setGeometry(QtCore.QRect(340, 360, 31, 31))
         self.forwardButton.setObjectName("forwardButton")
-        # self.widget = QtWidgets.QWidget(Dialog)
         self.widget = QMediaPlayer(None, QMediaPlayer.VideoSurface)
         # self.widget.setGeometry(QtCore.QRect(10, 10, 591, 321))
-        #self.widget.set
+        # self.widget.setAutoFillBackground(False)
+        # self.widget.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.widget.setObjectName("widget")
         self.cancelButton = QtWidgets.QPushButton(Dialog)
         self.cancelButton.setGeometry(QtCore.QRect(530, 370, 71, 23))
         self.cancelButton.setObjectName("cancelButton")
+        self.prevVideoButton = QtWidgets.QPushButton(Dialog)
+        self.prevVideoButton.setGeometry(QtCore.QRect(200, 360, 31, 31))
+        self.prevVideoButton.setObjectName("prevVideoButton")
+        self.nextVideoButton = QtWidgets.QPushButton(Dialog)
+        self.nextVideoButton.setGeometry(QtCore.QRect(380, 360, 31, 31))
+        self.nextVideoButton.setObjectName("nextVideoButton")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.isPlaying = False
-
         self.playPauseButton.clicked.connect(self.playPause)
         self.backwardButton.clicked.connect(self.backward)
         self.forwardButton.clicked.connect(self.forward)
         self.cancelButton.clicked.connect(Dialog.close)
-
+        
         self.widget.setMedia(
             QMediaContent(QUrl.fromLocalFile("/run/user/1000/doc/3248d1d4/Arrdee 2.0 - Fat Body (480p).mp4")))
 
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.playPauseButton.setText(_translate("Dialog", "Play"))
+        self.backwardButton.setText(_translate("Dialog", "<-"))
+        self.forwardButton.setText(_translate("Dialog", "->"))
+        self.cancelButton.setText(_translate("Dialog", "Cancel"))
+        self.prevVideoButton.setText(_translate("Dialog", "|<"))
+        self.nextVideoButton.setText(_translate("Dialog", ">|"))
+        
     def playPause(self):
         if self.isPlaying is False:
-            self.playPauseButton.setText("||")
+            self.playPauseButton.setText("Pause")
             self.isPlaying = True
             self.widget.play()
         else:
-            self.playPauseButton.setText("|>")
+            self.playPauseButton.setText("Play")
             self.isPlaying = False
             self.widget.pause()
 
@@ -68,14 +83,6 @@ class Ui_Dialog(object):
 
     def forward(self):
         print("")
-
-    def retranslateUi(self, Dialog):
-        _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.playPauseButton.setText(_translate("Dialog", "|>"))
-        self.backwardButton.setText(_translate("Dialog", "<-"))
-        self.forwardButton.setText(_translate("Dialog", "->"))
-        self.cancelButton.setText(_translate("Dialog", "Cancel"))
 
 
 if __name__ == "__main__":

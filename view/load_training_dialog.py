@@ -41,10 +41,10 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+        self.progressBar.setValue(0)
         self.browseButton.clicked.connect(self.browse)
         self.trainButton.clicked.connect(self.train)
         self.cancelButton.clicked.connect(Dialog.close)
-        self.progressBar.setValue(0)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate

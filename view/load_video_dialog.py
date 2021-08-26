@@ -13,6 +13,7 @@ from PyQt5.QtWidgets import QFileDialog
 
 from model import video_cropper
 from model.image_loader import ImageLoader
+from view import video_player_dialog
 
 
 class Ui_Dialog(object):
@@ -46,6 +47,9 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.files = []
+
+        self.progressBar.setValue(0)
+        self.playButton.clicked.connect(self.play)
         self.browseButton.clicked.connect(self.browse)
         self.runButton.clicked.connect(self.run)
         self.cancelButton.clicked.connect(Dialog.close)
@@ -75,6 +79,12 @@ class Ui_Dialog(object):
         video_cropper.crop(self.files[1], "2.Giraffe", [1020, 1030])
         ImageLoader.__new__(ImageLoader).load()
         self.cancelButton.click()
+
+    def play(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = video_player_dialog.Ui_Dialog()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
 
 if __name__ == "__main__":

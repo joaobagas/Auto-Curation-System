@@ -7,6 +7,7 @@ import requests
 from model.user_service import UserService
 
 url = "https://www.inaturalist.org"
+# mock_url = "https://312473ab-6967-48bf-a280-90603a115b65.mock.pstmn.io"
 app_id = "b974e28242fd352e2fc32defab55390e7580f0ac36d4e7bd23957d8e1f05e55a"
 app_secret = "b038d5b2e158c822f1b2645a3777b6449b97dbce96c70dc4d9a07ef4b17a0788"
 
@@ -26,7 +27,7 @@ def login(username, password):
 
 
 def post_observation(obs):
-    requests.post(url + "/observation", allow_redirects=False, data={
+    a = requests.post(mock_url + "/observation", allow_redirects=False, data={
         "species_guess": obs.species_guess,
         "taxon_id": obs.taxon_id,
         "observed_on_string": obs.observed_on_string,
