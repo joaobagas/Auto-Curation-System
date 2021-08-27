@@ -11,16 +11,23 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QUrl
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
+from PyQt5.QtMultimediaWidgets import QVideoWidget
 
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(611, 402)
-        self.horizontalSlider = QtWidgets.QSlider(Dialog)
-        self.horizontalSlider.setGeometry(QtCore.QRect(10, 340, 591, 16))
-        self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
-        self.horizontalSlider.setObjectName("horizontalSlider")
+        self.mediaPlayer = QMediaPlayer(Dialog, QMediaPlayer.VideoSurface)
+        videoWidget = QVideoWidget(Dialog)
+        videoWidget.setGeometry(QtCore.QRect(10, 10, 591, 321))
+        videoWidget.setAutoFillBackground(False)
+        videoWidget.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.mediaPlayer.setVideoOutput(videoWidget)
+        self.videoSlider = QtWidgets.QSlider(Dialog)
+        self.videoSlider.setGeometry(QtCore.QRect(10, 340, 591, 16))
+        self.videoSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.videoSlider.setObjectName("videoSlider")
         self.playPauseButton = QtWidgets.QPushButton(Dialog)
         self.playPauseButton.setGeometry(QtCore.QRect(280, 360, 51, 31))
         self.playPauseButton.setObjectName("playPauseButton")
@@ -30,59 +37,70 @@ class Ui_Dialog(object):
         self.forwardButton = QtWidgets.QPushButton(Dialog)
         self.forwardButton.setGeometry(QtCore.QRect(340, 360, 31, 31))
         self.forwardButton.setObjectName("forwardButton")
-        self.widget = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        # self.widget.setGeometry(QtCore.QRect(10, 10, 591, 321))
-        # self.widget.setAutoFillBackground(False)
-        # self.widget.setStyleSheet("background-color: rgb(0, 0, 0);")
-        self.widget.setObjectName("widget")
         self.cancelButton = QtWidgets.QPushButton(Dialog)
         self.cancelButton.setGeometry(QtCore.QRect(530, 370, 71, 23))
         self.cancelButton.setObjectName("cancelButton")
-        self.prevVideoButton = QtWidgets.QPushButton(Dialog)
-        self.prevVideoButton.setGeometry(QtCore.QRect(200, 360, 31, 31))
-        self.prevVideoButton.setObjectName("prevVideoButton")
-        self.nextVideoButton = QtWidgets.QPushButton(Dialog)
-        self.nextVideoButton.setGeometry(QtCore.QRect(380, 360, 31, 31))
-        self.nextVideoButton.setObjectName("nextVideoButton")
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.isPlaying = False
-        self.playPauseButton.clicked.connect(self.playPause)
+
+        # self.mediaPlayer.stateChanged.connect(self.mediaStateChanged)
+        self.mediaPlayer.positionChanged.connect(self.video_position_changed)
+        self.mediaPlayer.durationChanged.connect(self.video_duration_changed)
+        self.videoSlider.sliderMoved.connect(self.set_video_position)
+        self.playPauseButton.clicked.connect(self.play_pause)
         self.backwardButton.clicked.connect(self.backward)
         self.forwardButton.clicked.connect(self.forward)
         self.cancelButton.clicked.connect(Dialog.close)
-        
-        self.widget.setMedia(
-            QMediaContent(QUrl.fromLocalFile("/run/user/1000/doc/3248d1d4/Arrdee 2.0 - Fat Body (480p).mp4")))
-
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.playPauseButton.setText(_translate("Dialog", "Play"))
-        self.backwardButton.setText(_translate("Dialog", "<-"))
-        self.forwardButton.setText(_translate("Dialog", "->"))
+        self.backwardButton.setText(_translate("Dialog", "|<"))
+        self.forwardButton.setText(_translate("Dialog", ">|"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
-        self.prevVideoButton.setText(_translate("Dialog", "|<"))
-        self.nextVideoButton.setText(_translate("Dialog", ">|"))
-        
-    def playPause(self):
+
+    def setup_media(self, vids):
+        self.videos = vids
+        self.video_pointer = 0
+        self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(self.videos[self.video_pointer])))
+
+    def play_pause(self):
         if self.isPlaying is False:
             self.playPauseButton.setText("Pause")
             self.isPlaying = True
-            self.widget.play()
+            self.mediaPlayer.play()
         else:
             self.playPauseButton.setText("Play")
             self.isPlaying = False
-            self.widget.pause()
+            self.mediaPlayer.pause()
 
     def backward(self):
-        print("")
+        if self.video_pointer - 1 > -1:
+            self.video_pointer -= 1
+            self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(self.videos[self.video_pointer])))
+            self.playPauseButton.setText("Play")
+            self.isPlaying = False
+            self.mediaPlayer.pause()
 
     def forward(self):
-        print("")
+        if self.video_pointer + 1 < len(self.videos):
+            self.video_pointer += 1
+            self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(self.videos[self.video_pointer])))
+            self.playPauseButton.setText("Play")
+            self.isPlaying = False
+            self.mediaPlayer.pause()
+
+    def video_position_changed(self, position):
+        self.videoSlider.setValue(position)
+
+    def video_duration_changed(self, duration):
+        self.videoSlider.setRange(0, duration)
+
+    def set_video_position(self, position):
+        self.mediaPlayer.setPosition(position)
 
 
 if __name__ == "__main__":
