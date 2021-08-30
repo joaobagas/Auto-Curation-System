@@ -8,6 +8,7 @@ requests = "*"
 pyqt5 = "*"
 opencv-python = "*"
 pyqt5-plugins = "*"
+pillow = "*"
 
 [dev-packages]
 
