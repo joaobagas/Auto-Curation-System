@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from model.image_loader import ImageLoader
-from view import load_training_dialog, load_video_dialog, upload_dialog
+from view import load_training_dialog, load_video_dialog, upload_dialog, edit_image
 
 
 class Ui_MainWindow(object):
@@ -48,6 +48,9 @@ class Ui_MainWindow(object):
         self.nextObsButton = QtWidgets.QPushButton(self.centralwidget)
         self.nextObsButton.setGeometry(QtCore.QRect(430, 410, 81, 23))
         self.nextObsButton.setObjectName("nextObsButton")
+        self.editButton = QtWidgets.QPushButton(self.centralwidget)
+        self.editButton.setGeometry(QtCore.QRect(610, 410, 71, 23))
+        self.editButton.setObjectName("editButton")
         self.exitButton = QtWidgets.QPushButton(self.centralwidget)
         self.exitButton.setGeometry(QtCore.QRect(610, 440, 71, 23))
         self.exitButton.setObjectName("exitButton")
@@ -73,6 +76,7 @@ class Ui_MainWindow(object):
         self.trainButton.clicked.connect(self.on_click_train)
         self.runButton.clicked.connect(self.on_click_run)
         self.uploadButton.clicked.connect(self.on_click_upload)
+        self.editButton.clicked.connect(self.on_click_edit)
 
         self.previousObsButton.clicked.connect(self.on_click_previousObsButton)
         self.nextObsButton.clicked.connect(self.on_click_nextObsButton)
@@ -94,6 +98,7 @@ class Ui_MainWindow(object):
         self.backArrowButton.setText(_translate("MainWindow", "<--"))
         self.deleteImageButton.setText(_translate("MainWindow", "Delete Image"))
         self.nextObsButton.setText(_translate("MainWindow", "Next obs."))
+        self.editButton.setText(_translate("MainWindow", "Edit"))
         self.exitButton.setText(_translate("MainWindow", "Exit"))
         self.uploadButton.setText(_translate("MainWindow", "Upload"))
         self.previousObsButton.setText(_translate("MainWindow", "Previous obs."))
@@ -138,6 +143,12 @@ class Ui_MainWindow(object):
 
     def on_click_deleteImageButton(self):
         self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).delete_photo()))
+
+    def on_click_edit(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = edit_image.Ui_Dialog()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
 
 if __name__ == "__main__":

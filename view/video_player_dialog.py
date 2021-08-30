@@ -49,9 +49,9 @@ class Ui_Dialog(object):
         self.mediaPlayer.positionChanged.connect(self.video_position_changed)
         self.mediaPlayer.durationChanged.connect(self.video_duration_changed)
         self.videoSlider.sliderMoved.connect(self.set_video_position)
-        self.playPauseButton.clicked.connect(self.play_pause)
-        self.backwardButton.clicked.connect(self.backward)
-        self.forwardButton.clicked.connect(self.forward)
+        self.playPauseButton.clicked.connect(self.on_click_play_pause)
+        self.backwardButton.clicked.connect(self.on_click_backward)
+        self.forwardButton.clicked.connect(self.on_click_forward)
         self.cancelButton.clicked.connect(Dialog.close)
 
     def retranslateUi(self, Dialog):
@@ -67,7 +67,7 @@ class Ui_Dialog(object):
         self.video_pointer = 0
         self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(self.videos[self.video_pointer])))
 
-    def play_pause(self):
+    def on_click_play_pause(self):
         if self.isPlaying is False:
             self.playPauseButton.setText("Pause")
             self.isPlaying = True
@@ -77,7 +77,7 @@ class Ui_Dialog(object):
             self.isPlaying = False
             self.mediaPlayer.pause()
 
-    def backward(self):
+    def on_click_backward(self):
         if self.video_pointer - 1 > -1:
             self.video_pointer -= 1
             self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(self.videos[self.video_pointer])))
@@ -85,7 +85,7 @@ class Ui_Dialog(object):
             self.isPlaying = False
             self.mediaPlayer.pause()
 
-    def forward(self):
+    def on_click_forward(self):
         if self.video_pointer + 1 < len(self.videos):
             self.video_pointer += 1
             self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(self.videos[self.video_pointer])))

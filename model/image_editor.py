@@ -26,3 +26,20 @@ class ImageEditor(object):
         image_enhancer = ImageEnhance.Sharpness(self.img)
         self.img = image_enhancer.enhance(value)
         self.img.show()
+
+    def crop(self):
+        # Opens a image in RGB mode
+        im = Image.open(r"C:\Users\Admin\Pictures\geeks.png")
+
+        # Size of the image in pixels (size of original image)
+        width, height = im.size
+        # Setting the points for cropped image
+        left = 5
+        top = height / 4
+        right = 164
+        bottom = 3 * height / 4
+        # Cropped image of above dimension
+        # (It will not change original image)
+        im1 = im.crop((left, top, right, bottom))
+        # Shows the image in image viewer
+        im1.show()

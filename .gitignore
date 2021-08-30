@@ -1,3 +1,2 @@
 /img/observations/
-view/__pycache__/load_video_dialog.cpython-38.pyc
-view/__pycache__/video_player_dialog.cpython-38.pyc
+*.pyc

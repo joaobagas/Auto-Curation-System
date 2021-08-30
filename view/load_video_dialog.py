@@ -49,9 +49,9 @@ class Ui_Dialog(object):
         self.files = []
 
         self.progressBar.setValue(0)
-        self.playButton.clicked.connect(self.play)
-        self.browseButton.clicked.connect(self.browse)
-        self.runButton.clicked.connect(self.run)
+        self.playButton.clicked.connect(self.on_click_play)
+        self.browseButton.clicked.connect(self.on_click_browse)
+        self.runButton.clicked.connect(self.on_click_run)
         self.cancelButton.clicked.connect(Dialog.close)
 
     def retranslateUi(self, Dialog):
@@ -63,7 +63,7 @@ class Ui_Dialog(object):
         self.playButton.setText(_translate("Dialog", "Play"))
         self.statusLabel.setText(_translate("Dialog", "Status:"))
 
-    def browse(self):
+    def on_click_browse(self):
         files = QFileDialog.getOpenFileNames(None, None, '', 'Media file(*.mp4 *.wmv *.avi *.3gp *.oog *.mpeg *.mp2 '
                                                              '*.wma *.mp3);;All files(*.*)')
         fname = ""
@@ -74,13 +74,13 @@ class Ui_Dialog(object):
         self.lineEdit.setText(fname)
         self.files = files[0]
 
-    def run(self):
+    def on_click_run(self):
         video_cropper.crop(self.files[0], "1.Lion", [1000, 1005])
         video_cropper.crop(self.files[1], "2.Giraffe", [1020, 1030])
         ImageLoader.__new__(ImageLoader).load()
         self.cancelButton.click()
 
-    def play(self):
+    def on_click_play(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = video_player_dialog.Ui_Dialog()
         self.ui.setupUi(self.window)

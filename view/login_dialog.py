@@ -41,7 +41,7 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-        self.loginButton.clicked.connect(self.login)
+        self.loginButton.clicked.connect(self.on_click_login)
         self.cancelButton.clicked.connect(Dialog.close)
 
         self.passwordLineEdit_2.setEchoMode(QLineEdit.Password)
@@ -54,7 +54,7 @@ class Ui_Dialog(object):
         self.loginButton.setText(_translate("Dialog", "Login"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
 
-    def login(self):
+    def on_click_login(self):
         inaturalist_api.login(self.usernameLineEdit.text(), self.passwordLineEdit_2.text())
         if UserService.__new__(UserService).get_access_token() is not None:
             self.cancelButton.click()

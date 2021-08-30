@@ -91,8 +91,8 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-        self.loginButton.clicked.connect(self.login)
-        self.uploadButton.clicked.connect(self.upload)
+        self.loginButton.clicked.connect(self.on_click_login)
+        self.uploadButton.clicked.connect(self.on_click_upload)
         self.cancelButton.clicked.connect(Dialog.close)
 
     def retranslateUi(self, Dialog):
@@ -110,13 +110,13 @@ class Ui_Dialog(object):
         self.label_9.setText(_translate("Dialog", "Place:"))
         self.loginButton.setText(_translate("Dialog", "Login"))
 
-    def login(self):
+    def on_click_login(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = login_dialog.Ui_Dialog()
         self.ui.setupUi(self.window)
         self.window.show()
 
-    def upload(self):
+    def on_click_upload(self):
         if UserService.__new__(UserService).get_username() is None:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
