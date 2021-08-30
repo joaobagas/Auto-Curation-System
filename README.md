@@ -16,7 +16,7 @@ The aim of the Auto-Curation System is to develop a system to semi-automatically
 
     $ pipenv install
 
-  3. Install the necessary using the following command:
+  3. Install the necessary framework to run the video/audio using the following command:
 
     $ sudo apt install gstreamer1.0-libav ubuntu-restricted-extras
 
