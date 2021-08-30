@@ -18,7 +18,7 @@ from model.user_service import UserService
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(172, 147)
+        Dialog.setFixedSize(172, 147)
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(60, 10, 47, 13))
         self.label.setObjectName("label")
@@ -48,7 +48,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Login"))
         self.label.setText(_translate("Dialog", "Username"))
         self.label_2.setText(_translate("Dialog", "Password"))
         self.loginButton.setText(_translate("Dialog", "Login"))

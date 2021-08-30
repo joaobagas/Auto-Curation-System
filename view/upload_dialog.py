@@ -22,7 +22,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.setEnabled(True)
-        Dialog.resize(425, 493)
+        Dialog.setFixedSize(425, 493)
         self.nameLineEdit = QtWidgets.QLineEdit(Dialog)
         self.nameLineEdit.setGeometry(QtCore.QRect(50, 170, 361, 20))
         self.nameLineEdit.setObjectName("nameLineEdit")
@@ -97,7 +97,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Upload"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
         self.uploadButton.setText(_translate("Dialog", "Upload"))
         self.label_2.setText(_translate("Dialog", "X:"))

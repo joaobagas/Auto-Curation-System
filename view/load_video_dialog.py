@@ -19,7 +19,7 @@ from view import video_player_dialog
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(385, 123)
+        Dialog.setFixedSize(385, 123)
         self.lineEdit = QtWidgets.QLineEdit(Dialog)
         self.lineEdit.setGeometry(QtCore.QRect(10, 10, 291, 20))
         self.lineEdit.setObjectName("lineEdit")
@@ -56,7 +56,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Load Video"))
         self.browseButton.setText(_translate("Dialog", "Browse"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
         self.runButton.setText(_translate("Dialog", "Run"))
@@ -69,7 +69,7 @@ class Ui_Dialog(object):
         fname = ""
         for file in files[0]:
             if fname != "":
-                fname += "###"
+                fname += "&&"
             fname += file
         self.lineEdit.setText(fname)
         self.files = files[0]

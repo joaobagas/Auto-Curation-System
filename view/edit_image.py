@@ -16,7 +16,7 @@ from model import image_editor
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(202, 209)
+        Dialog.setFixedSize(202, 209)
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 20, 121, 16))
         self.label.setObjectName("label")
@@ -84,7 +84,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Edit"))
         self.label.setText(_translate("Dialog", "Brightness"))
         self.label_2.setText(_translate("Dialog", "Contrast"))
         self.label_3.setText(_translate("Dialog", "Saturation"))

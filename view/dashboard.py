@@ -17,9 +17,7 @@ from view import load_training_dialog, load_video_dialog, upload_dialog, edit_im
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(690, 490)
-        MainWindow.setFixedWidth(690)
-        MainWindow.setFixedHeight(490)
+        MainWindow.setFixedSize(690, 475)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.imageView = QtWidgets.QLabel(self.centralwidget)
@@ -91,7 +89,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Dashboard"))
         self.trainButton.setText(_translate("MainWindow", "Train"))
         self.runButton.setText(_translate("MainWindow", "Run"))
         self.forwardArrowButton.setText(_translate("MainWindow", "-->"))

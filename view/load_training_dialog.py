@@ -16,7 +16,7 @@ from model import training_manager
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(385, 123)
+        Dialog.setFixedSize(385, 123)
         self.lineEdit = QtWidgets.QLineEdit(Dialog)
         self.lineEdit.setGeometry(QtCore.QRect(10, 10, 291, 20))
         self.lineEdit.setObjectName("lineEdit")
@@ -47,7 +47,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Train"))
         self.browseButton.setText(_translate("Dialog", "Browse"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
         self.trainButton.setText(_translate("Dialog", "Train"))

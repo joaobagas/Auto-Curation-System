@@ -17,7 +17,7 @@ from PyQt5.QtMultimediaWidgets import QVideoWidget
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(611, 402)
+        Dialog.setFixedSize(611, 402)
         self.mediaPlayer = QMediaPlayer(Dialog, QMediaPlayer.VideoSurface)
         videoWidget = QVideoWidget(Dialog)
         videoWidget.setGeometry(QtCore.QRect(10, 10, 591, 321))
@@ -56,7 +56,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Player"))
         self.playPauseButton.setText(_translate("Dialog", "Play"))
         self.backwardButton.setText(_translate("Dialog", "|<"))
         self.forwardButton.setText(_translate("Dialog", ">|"))
