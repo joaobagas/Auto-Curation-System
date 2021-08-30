@@ -61,7 +61,6 @@ class Ui_Dialog(object):
         self.progressBar.setMaximum(100)
         t = training_manager.TrainingManager()
         t.train(self.progressBar)
-        # self.cancelButton.click()
 
 
 if __name__ == "__main__":

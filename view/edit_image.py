@@ -10,6 +10,8 @@
 
 from PyQt5 import QtCore, QtWidgets
 
+from model import image_editor
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -76,6 +78,8 @@ class Ui_Dialog(object):
         self.moreSharpnessButton.clicked.connect(self.on_clicked_more_sharpness)
         self.lessSharpnessButton.clicked.connect(self.on_clicked_less_sharpness)
 
+        self.editor
+
         self.cropButton.clicked.connect(self.on_click_crop)
         self.saveButton.clicked.connect(self.on_click_save)
         self.cancelButton.clicked.connect(Dialog.close)
@@ -100,35 +104,38 @@ class Ui_Dialog(object):
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
         self.saveButton.setText(_translate("Dialog", "Save"))
 
+    def setup_editor(self, path):
+        self.editor = image_editor.ImageEditor(path)
+
     def on_clicked_more_brightness(self):
-        print("+")
+        self.editor.change_brightness(2)
 
     def on_clicked_less_brightness(self):
-        print("-")
+        self.editor.change_brightness(0.5)
 
     def on_clicked_more_contrast(self):
-        print("+")
+        self.editor.change_contrast(2)
 
     def on_clicked_less_contrast(self):
-        print("-")
+        self.editor.change_contrast(0.5)
 
     def on_clicked_more_saturation(self):
-        print("+")
+        self.editor.change_saturation(2)
 
     def on_clicked_less_saturation(self):
-        print("-")
+        self.editor.change_saturation(0.5)
 
     def on_clicked_more_sharpness(self):
-        print("+")
+        self.editor.change_sharpness(2)
 
     def on_clicked_less_sharpness(self):
-        print("-")
+        self.editor.change_sharpness(0.5)
 
     def on_click_crop(self):
-        print("Crop")
+        self.editor.crop(0, 0, 200, 200)
 
     def on_click_save(self):
-        print("Save")
+        self.editor.save()
 
 if __name__ == "__main__":
     import sys
