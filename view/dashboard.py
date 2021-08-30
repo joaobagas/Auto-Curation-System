@@ -147,6 +147,7 @@ class Ui_MainWindow(object):
     def on_click_edit(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = edit_image.Ui_Dialog()
+        self.ui.setup_editor(ImageLoader.__new__(ImageLoader).current_image)
         self.ui.setupUi(self.window)
         self.window.show()
 

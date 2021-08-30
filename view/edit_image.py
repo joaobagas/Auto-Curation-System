@@ -78,8 +78,6 @@ class Ui_Dialog(object):
         self.moreSharpnessButton.clicked.connect(self.on_clicked_more_sharpness)
         self.lessSharpnessButton.clicked.connect(self.on_clicked_less_sharpness)
 
-        self.editor
-
         self.cropButton.clicked.connect(self.on_click_crop)
         self.saveButton.clicked.connect(self.on_click_save)
         self.cancelButton.clicked.connect(Dialog.close)
