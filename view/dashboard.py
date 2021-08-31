@@ -66,24 +66,10 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QtCore.QRect(0, 0, 687, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.exitButton.clicked.connect(exit)
-        self.trainButton.clicked.connect(self.on_click_train)
-        self.runButton.clicked.connect(self.on_click_run)
-        self.uploadButton.clicked.connect(self.on_click_upload)
-        self.editButton.clicked.connect(self.on_click_edit)
-
-        self.previousObsButton.clicked.connect(self.on_click_previousObsButton)
-        self.nextObsButton.clicked.connect(self.on_click_nextObsButton)
-        self.backArrowButton.clicked.connect(self.on_click_backArrowButton)
-        self.forwardArrowButton.clicked.connect(self.on_click_forwardArrowButton)
-
-        self.rejectButton.clicked.connect(self.on_click_rejectButton)
-        self.deleteImageButton.clicked.connect(self.on_click_deleteImageButton)
-
+        self.set_buttons()
         ImageLoader.__new__(ImageLoader).load()
 
 
@@ -99,8 +85,21 @@ class Ui_MainWindow(object):
         self.editButton.setText(_translate("MainWindow", "Edit"))
         self.exitButton.setText(_translate("MainWindow", "Exit"))
         self.uploadButton.setText(_translate("MainWindow", "Upload"))
-        self.previousObsButton.setText(_translate("MainWindow", "Previous obs."))
+        self.previousObsButton.setText(_translate("MainWindow", "Prev. obs."))
         self.rejectButton.setText(_translate("MainWindow", "Reject"))
+
+    def set_buttons(self):
+        self.exitButton.clicked.connect(exit)
+        self.trainButton.clicked.connect(self.on_click_train)
+        self.runButton.clicked.connect(self.on_click_run)
+        self.uploadButton.clicked.connect(self.on_click_upload)
+        self.editButton.clicked.connect(self.on_click_edit)
+        self.previousObsButton.clicked.connect(self.on_click_previousObsButton)
+        self.nextObsButton.clicked.connect(self.on_click_nextObsButton)
+        self.backArrowButton.clicked.connect(self.on_click_backArrowButton)
+        self.forwardArrowButton.clicked.connect(self.on_click_forwardArrowButton)
+        self.rejectButton.clicked.connect(self.on_click_rejectButton)
+        self.deleteImageButton.clicked.connect(self.on_click_deleteImageButton)
 
     def on_click_train(self):
         self.window = QtWidgets.QMainWindow()

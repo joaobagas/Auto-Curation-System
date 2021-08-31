@@ -1,6 +1,7 @@
 import time
 from threading import Thread
 
+
 class TrainingManager:
     def __init__(self):
         print("Initialized")

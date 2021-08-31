@@ -26,5 +26,5 @@ class ImageEditor(object):
     def crop(self, left, top, right, bottom):
         self.img = self.img.crop((left, top, right, bottom))
 
-    def save(self):
-        self.img.save("img/observations/test.jpg")
+    def save(self, title):
+        self.img.save("img/observations/" + title + ".jpg")

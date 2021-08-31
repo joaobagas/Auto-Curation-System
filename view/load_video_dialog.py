@@ -47,12 +47,8 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.files = []
-
         self.progressBar.setValue(0)
-        self.playButton.clicked.connect(self.on_click_play)
-        self.browseButton.clicked.connect(self.on_click_browse)
-        self.runButton.clicked.connect(self.on_click_run)
-        self.cancelButton.clicked.connect(Dialog.close)
+        self.set_buttons(Dialog)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -62,6 +58,12 @@ class Ui_Dialog(object):
         self.runButton.setText(_translate("Dialog", "Run"))
         self.playButton.setText(_translate("Dialog", "Play"))
         self.statusLabel.setText(_translate("Dialog", "Status:"))
+
+    def set_buttons(self, Dialog):
+        self.playButton.clicked.connect(self.on_click_play)
+        self.browseButton.clicked.connect(self.on_click_browse)
+        self.runButton.clicked.connect(self.on_click_run)
+        self.cancelButton.clicked.connect(Dialog.close)
 
     def on_click_browse(self):
         files = QFileDialog.getOpenFileNames(None, None, '', 'Media file(*.mp4 *.wmv *.avi *.3gp *.oog *.mpeg *.mp2 '
@@ -75,10 +77,12 @@ class Ui_Dialog(object):
         self.files = files[0]
 
     def on_click_run(self):
-        video_cropper.crop(self.files[0], "1.Lion", [1000, 1005])
-        video_cropper.crop(self.files[1], "2.Giraffe", [1020, 1030])
-        ImageLoader.__new__(ImageLoader).load()
-        self.cancelButton.click()
+        try:
+            video_cropper.crop(self.files[0], "1.Lion", [1000, 1005])
+            ImageLoader.__new__(ImageLoader).load()
+            self.statusLabel.setText("Status: Upload was successful!")
+        except:
+            self.statusLabel.setText("Status: There was an error!")
 
     def on_click_play(self):
         self.window = QtWidgets.QMainWindow()

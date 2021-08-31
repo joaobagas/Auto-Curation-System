@@ -7,7 +7,6 @@ import requests
 from model.user_service import UserService
 
 url = "https://www.inaturalist.org"
-# mock_url = "https://312473ab-6967-48bf-a280-90603a115b65.mock.pstmn.io"
 app_id = "b974e28242fd352e2fc32defab55390e7580f0ac36d4e7bd23957d8e1f05e55a"
 app_secret = "b038d5b2e158c822f1b2645a3777b6449b97dbce96c70dc4d9a07ef4b17a0788"
 
@@ -21,13 +20,14 @@ def login(username, password):
         'password': password
     }
     response = requests.post((url + "/oauth/token"), payload)
+
     if response.status_code == 200:
         data = json.loads(response.content)
-        UserService.__new__(UserService).set_user_info(username, data["access_token"])
+        UserService.__new__(UserService).set_user_info(username, password, data["access_token"])
 
 
 def post_observation(obs):
-    a = requests.post(mock_url + "/observation", allow_redirects=False, data={
+    response = requests.post(url + "/observation", allow_redirects=False, data={
         "species_guess": obs.species_guess,
         "taxon_id": obs.taxon_id,
         "observed_on_string": obs.observed_on_string,
@@ -46,3 +46,6 @@ def post_observation(obs):
         "facebook_photos": obs.facebook_photos,
         "local_photos": obs.local_photos
     }, auth=UserService.__new__(UserService).get_access_token())
+
+    if response.status_code == 200:
+        print("Success!")

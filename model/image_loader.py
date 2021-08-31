@@ -56,6 +56,7 @@ class ImageLoader(object):
             self.current_observation = self.observations[self.obs_pointer]
         self.load_obs()
         if self.obs_images:
+            self.obs_images_pointer = 0
             self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
 
@@ -68,6 +69,7 @@ class ImageLoader(object):
             self.current_observation = self.observations[self.obs_pointer]
         self.load_obs()
         if self.obs_images:
+            self.obs_images_pointer = 0
             self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
 
@@ -108,6 +110,7 @@ class ImageLoader(object):
         if self.obs_images_pointer > len(self.obs_images) - 1:
             self.obs_images_pointer -= 1
         if len(self.obs_images) == 0:
+            self.observations.pop(self.obs_pointer)
             self.obs_images_pointer = -1
             self.current_image = 'img/black_image.jpg'
         else:

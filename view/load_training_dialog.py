@@ -41,9 +41,7 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.progressBar.setValue(0)
-        self.browseButton.clicked.connect(self.on_click_browse)
-        self.trainButton.clicked.connect(self.on_click_train)
-        self.cancelButton.clicked.connect(Dialog.close)
+        self.set_buttons(Dialog)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -52,6 +50,11 @@ class Ui_Dialog(object):
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
         self.trainButton.setText(_translate("Dialog", "Train"))
         self.statusLabel.setText(_translate("Dialog", "Status:"))
+
+    def set_buttons(self, Dialog):
+        self.browseButton.clicked.connect(self.on_click_browse)
+        self.trainButton.clicked.connect(self.on_click_train)
+        self.cancelButton.clicked.connect(Dialog.close)
 
     def on_click_browse(self):
         fname = QFileDialog.getOpenFileName(None, "Open file")

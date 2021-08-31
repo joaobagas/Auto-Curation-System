@@ -44,15 +44,8 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.isPlaying = False
+        self.set_buttons_and_bar(Dialog)
 
-        # self.mediaPlayer.stateChanged.connect(self.mediaStateChanged)
-        self.mediaPlayer.positionChanged.connect(self.video_position_changed)
-        self.mediaPlayer.durationChanged.connect(self.video_duration_changed)
-        self.videoSlider.sliderMoved.connect(self.set_video_position)
-        self.playPauseButton.clicked.connect(self.on_click_play_pause)
-        self.backwardButton.clicked.connect(self.on_click_backward)
-        self.forwardButton.clicked.connect(self.on_click_forward)
-        self.cancelButton.clicked.connect(Dialog.close)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -61,6 +54,15 @@ class Ui_Dialog(object):
         self.backwardButton.setText(_translate("Dialog", "|<"))
         self.forwardButton.setText(_translate("Dialog", ">|"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
+
+    def set_buttons_and_bar(self, Dialog):
+        self.mediaPlayer.positionChanged.connect(self.video_position_changed)
+        self.mediaPlayer.durationChanged.connect(self.video_duration_changed)
+        self.videoSlider.sliderMoved.connect(self.set_video_position)
+        self.playPauseButton.clicked.connect(self.on_click_play_pause)
+        self.backwardButton.clicked.connect(self.on_click_backward)
+        self.forwardButton.clicked.connect(self.on_click_forward)
+        self.cancelButton.clicked.connect(Dialog.close)
 
     def setup_media(self, vids):
         self.videos = vids

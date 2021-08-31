@@ -69,18 +69,9 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-        self.moreBrightnessButton.clicked.connect(self.on_clicked_more_brightness)
-        self.lessBrightnessButton.clicked.connect(self.on_clicked_less_brightness)
-        self.moreContrastButton.clicked.connect(self.on_clicked_more_contrast)
-        self.lessContrastButton.clicked.connect(self.on_clicked_less_contrast)
-        self.moreSaturationButton.clicked.connect(self.on_clicked_more_saturation)
-        self.lessSaturationButton.clicked.connect(self.on_clicked_less_saturation)
-        self.moreSharpnessButton.clicked.connect(self.on_clicked_more_sharpness)
-        self.lessSharpnessButton.clicked.connect(self.on_clicked_less_sharpness)
+        self.set_buttons(Dialog)
 
-        self.cropButton.clicked.connect(self.on_click_crop)
-        self.saveButton.clicked.connect(self.on_click_save)
-        self.cancelButton.clicked.connect(Dialog.close)
+
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -101,6 +92,19 @@ class Ui_Dialog(object):
         self.cropButton.setText(_translate("Dialog", "Crop"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
         self.saveButton.setText(_translate("Dialog", "Save"))
+
+    def set_buttons(self, Dialog):
+        self.moreBrightnessButton.clicked.connect(self.on_clicked_more_brightness)
+        self.lessBrightnessButton.clicked.connect(self.on_clicked_less_brightness)
+        self.moreContrastButton.clicked.connect(self.on_clicked_more_contrast)
+        self.lessContrastButton.clicked.connect(self.on_clicked_less_contrast)
+        self.moreSaturationButton.clicked.connect(self.on_clicked_more_saturation)
+        self.lessSaturationButton.clicked.connect(self.on_clicked_less_saturation)
+        self.moreSharpnessButton.clicked.connect(self.on_clicked_more_sharpness)
+        self.lessSharpnessButton.clicked.connect(self.on_clicked_less_sharpness)
+        self.cropButton.clicked.connect(self.on_click_crop)
+        self.saveButton.clicked.connect(self.on_click_save)
+        self.cancelButton.clicked.connect(Dialog.close)
 
     def setup_editor(self, path):
         self.editor = image_editor.ImageEditor(path)
@@ -133,7 +137,7 @@ class Ui_Dialog(object):
         self.editor.crop(0, 0, 200, 200)
 
     def on_click_save(self):
-        self.editor.save()
+        self.editor.save("Test")
 
 if __name__ == "__main__":
     import sys

@@ -4,16 +4,18 @@
 
 class UserService(object):
     _instance = None
-    access_token = None
     username = None
+    password = None
+    access_token = None
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = super(UserService, cls).__new__(cls, *args, **kwargs)
         return cls._instance
 
-    def set_user_info(self, username, access_token):
+    def set_user_info(self, username, password, access_token):
         self.username = username
+        self.password = password
         self.access_token = access_token
 
     def get_username(self):
