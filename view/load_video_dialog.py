@@ -85,11 +85,12 @@ class Ui_Dialog(object):
             self.statusLabel.setText("Status: There was an error!")
 
     def on_click_play(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = video_player_dialog.Ui_Dialog()
-        self.ui.setupUi(self.window)
-        self.ui.setup_media(self.files)
-        self.window.show()
+        if self.files:
+            self.window = QtWidgets.QMainWindow()
+            self.ui = video_player_dialog.Ui_Dialog()
+            self.ui.setupUi(self.window)
+            self.ui.setup_media(self.files)
+            self.window.show()
 
 
 if __name__ == "__main__":

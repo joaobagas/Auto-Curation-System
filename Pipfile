@@ -9,6 +9,7 @@ pyqt5 = "*"
 opencv-python = "*"
 pyqt5-plugins = "*"
 pillow = "*"
+moviepy = "*"
 
 [dev-packages]
 

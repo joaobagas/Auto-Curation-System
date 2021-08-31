@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QUrl
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
+from model.video_cropper import trim
 
 
 class Ui_Dialog(object):
@@ -40,10 +41,19 @@ class Ui_Dialog(object):
         self.cancelButton = QtWidgets.QPushButton(Dialog)
         self.cancelButton.setGeometry(QtCore.QRect(530, 370, 71, 23))
         self.cancelButton.setObjectName("cancelButton")
+        self.saveButton = QtWidgets.QPushButton(Dialog)
+        self.saveButton.setGeometry(QtCore.QRect(10, 362, 51, 31))
+        self.saveButton.setObjectName("saveButton")
+        self.trimButton = QtWidgets.QPushButton(Dialog)
+        self.trimButton.setGeometry(QtCore.QRect(70, 362, 51, 31))
+        self.trimButton.setObjectName("trimButton")
+
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
         self.isPlaying = False
+        self.trimStart = None
+        self.trimEnd = None
         self.set_buttons_and_bar(Dialog)
 
 
@@ -54,6 +64,8 @@ class Ui_Dialog(object):
         self.backwardButton.setText(_translate("Dialog", "|<"))
         self.forwardButton.setText(_translate("Dialog", ">|"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
+        self.saveButton.setText(_translate("Dialog", "Save"))
+        self.trimButton.setText(_translate("Dialog", "Trim"))
 
     def set_buttons_and_bar(self, Dialog):
         self.mediaPlayer.positionChanged.connect(self.video_position_changed)
@@ -62,6 +74,8 @@ class Ui_Dialog(object):
         self.playPauseButton.clicked.connect(self.on_click_play_pause)
         self.backwardButton.clicked.connect(self.on_click_backward)
         self.forwardButton.clicked.connect(self.on_click_forward)
+        self.saveButton.clicked.connect(self.on_click_save)
+        self.trimButton.clicked.connect(self.on_click_trim)
         self.cancelButton.clicked.connect(Dialog.close)
 
     def setup_media(self, vids):
@@ -94,6 +108,19 @@ class Ui_Dialog(object):
             self.playPauseButton.setText("Play")
             self.isPlaying = False
             self.mediaPlayer.pause()
+
+    def on_click_trim(self):
+        position = int(self.mediaPlayer.position())
+        if self.trimStart is None:
+            self.trimStart = (position - position % 1000) / 1000
+        elif self.trimEnd is None:
+            self.trimEnd = (position - position % 1000) / 1000
+
+    def on_click_save(self):
+        try:
+            trim(self.videos[self.video_pointer], self.trimStart, self.trimEnd, "Test")
+        except:
+            print("")
 
     def video_position_changed(self, position):
         self.videoSlider.setValue(position)
