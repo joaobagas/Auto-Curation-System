@@ -27,7 +27,8 @@ def login(username, password):
 
 
 def post_observation(obs):
-    response = requests.post(url + "/observation", allow_redirects=False, data={
+    head = {'Authorization': 'Bearer ' + UserService.__new__(UserService).get_access_token()}
+    payload = {
         "species_guess": obs.species_guess,
         "taxon_id": obs.taxon_id,
         "observed_on_string": obs.observed_on_string,
@@ -45,7 +46,10 @@ def post_observation(obs):
         "picasa_photos": obs.picasa_photos,
         "facebook_photos": obs.facebook_photos,
         "local_photos": obs.local_photos
-    }, auth=UserService.__new__(UserService).get_access_token())
+    }
+    response = requests.post(url + "/observations", allow_redirects=False, json=payload, headers=head)
 
     if response.status_code == 200:
         print("Success!")
+    else:
+        print(response)

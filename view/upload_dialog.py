@@ -12,10 +12,12 @@ import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from model import inaturalist_api
+from model import inaturalist_api, csv_reader
 from view import login_dialog
 from model.user_service import UserService
+from model.image_loader import ImageLoader
 from domain.observation import Observation
+from PIL import Image
 
 
 class Ui_Dialog(object):
@@ -74,7 +76,7 @@ class Ui_Dialog(object):
         self.label_8 = QtWidgets.QLabel(Dialog)
         self.label_8.setGeometry(QtCore.QRect(10, 260, 71, 21))
         self.label_8.setObjectName("label_8")
-        self.timezoneLineEdit = QtWidgets.QLineEdit(Dialog)
+        self.timezoneLineEdit = QtWidgets.QComboBox(Dialog)
         self.timezoneLineEdit.setGeometry(QtCore.QRect(90, 260, 321, 20))
         self.timezoneLineEdit.setObjectName("timezoneLineEdit")
         self.label_9 = QtWidgets.QLabel(Dialog)
@@ -93,8 +95,6 @@ class Ui_Dialog(object):
 
         self.set_buttons(Dialog)
 
-
-
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Upload"))
@@ -109,11 +109,20 @@ class Ui_Dialog(object):
         self.label_8.setText(_translate("Dialog", "Timezone:"))
         self.label_9.setText(_translate("Dialog", "Place:"))
         self.loginButton.setText(_translate("Dialog", "Login"))
+        for timezone in csv_reader.get_timezones():
+            self.timezoneLineEdit.addItem(str(timezone))
 
     def set_buttons(self, Dialog):
         self.loginButton.clicked.connect(self.on_click_login)
         self.uploadButton.clicked.connect(self.on_click_upload)
         self.cancelButton.clicked.connect(Dialog.close)
+
+    def create_observation(self):
+        photos = ImageLoader.__new__(ImageLoader).obs_images
+        self.obs = Observation()
+        #for photo in photos:
+        #    self.obs.local_photos.append(open(photo, 'rb').read())
+        #self.label.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).current_image))
 
     def on_click_login(self):
         self.window = QtWidgets.QMainWindow()
@@ -129,16 +138,15 @@ class Ui_Dialog(object):
             msg.setWindowTitle("Error")
             msg.exec_()
         else:
-            obs = Observation()
-            obs.species_guess = self.nameLineEdit.text()
-            obs.taxon_id = self.taxonIDLineEdit.text()
-            obs.observed_on_string = self.observedOnDateTime.text()
-            obs.time_zone = self.timezoneLineEdit.text()
-            obs.place_guess = self.placeLineEdit.text()
-            obs.latitude = self.latitudeLineEdit.text()
-            obs.longitude = self.longitudeLineEdit.text()
-            obs.description = self.descriptionTextEdit.toPlainText()
-            inaturalist_api.post_observation(obs)
+            self.obs.species_guess = self.nameLineEdit.text()
+            self.obs.taxon_id = self.taxonIDLineEdit.text()
+            self.obs.observed_on_string = self.observedOnDateTime.text()
+            self.obs.time_zone = self.timezoneLineEdit.text()
+            self.obs.place_guess = self.placeLineEdit.text()
+            self.obs.latitude = self.latitudeLineEdit.text()
+            self.obs.longitude = self.longitudeLineEdit.text()
+            self.obs.description = self.descriptionTextEdit.toPlainText()
+            inaturalist_api.post_observation(self.obs)
 
 
 if __name__ == "__main__":

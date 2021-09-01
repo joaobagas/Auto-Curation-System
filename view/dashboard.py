@@ -117,6 +117,7 @@ class Ui_MainWindow(object):
         self.window = QtWidgets.QMainWindow()
         self.ui = upload_dialog.Ui_Dialog()
         self.ui.setupUi(self.window)
+        self.ui.create_observation()
         self.window.show()
 
     def on_click_previousObsButton(self):
