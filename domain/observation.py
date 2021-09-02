@@ -5,7 +5,7 @@ class Observation(object):
         self.observed_on_string = ""
         self.time_zone = ""
         self.description = ""
-        self.tag_list = ""
+        self.tag_list = []
         self.place_guess = ""
         self.latitude = ""
         self.longitude = ""

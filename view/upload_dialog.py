@@ -141,12 +141,13 @@ class Ui_Dialog(object):
             self.obs.species_guess = self.nameLineEdit.text()
             self.obs.taxon_id = self.taxonIDLineEdit.text()
             self.obs.observed_on_string = self.observedOnDateTime.text()
-            self.obs.time_zone = self.timezoneLineEdit.text()
+            self.obs.time_zone = self.timezoneLineEdit.currentText()
             self.obs.place_guess = self.placeLineEdit.text()
             self.obs.latitude = self.latitudeLineEdit.text()
             self.obs.longitude = self.longitudeLineEdit.text()
             self.obs.description = self.descriptionTextEdit.toPlainText()
             inaturalist_api.post_observation(self.obs)
+        #inaturalist_api.post_observation2()
 
 
 if __name__ == "__main__":

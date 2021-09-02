@@ -1,6 +1,3 @@
-import csv
-
-
 def get_timezones():
     timezones = []
     with open("csv/timezones.csv", newline='') as csv_file:
