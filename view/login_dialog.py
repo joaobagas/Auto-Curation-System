@@ -20,8 +20,9 @@ class Ui_Dialog(object):
         Dialog.setObjectName("Dialog")
         Dialog.setFixedSize(172, 147)
         self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(60, 10, 47, 13))
+        self.label.setGeometry(QtCore.QRect(10, 10, 151, 20))
         self.label.setObjectName("label")
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.usernameLineEdit = QtWidgets.QLineEdit(Dialog)
         self.usernameLineEdit.setGeometry(QtCore.QRect(12, 30, 151, 20))
         self.usernameLineEdit.setObjectName("usernameLineEdit")
@@ -29,8 +30,9 @@ class Ui_Dialog(object):
         self.passwordLineEdit_2.setGeometry(QtCore.QRect(12, 80, 151, 20))
         self.passwordLineEdit_2.setObjectName("passwordLineEdit_2")
         self.label_2 = QtWidgets.QLabel(Dialog)
-        self.label_2.setGeometry(QtCore.QRect(60, 60, 47, 13))
+        self.label_2.setGeometry(QtCore.QRect(10, 60, 151, 20))
         self.label_2.setObjectName("label_2")
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.loginButton = QtWidgets.QPushButton(Dialog)
         self.loginButton.setGeometry(QtCore.QRect(10, 110, 71, 23))
         self.loginButton.setObjectName("loginButton")
@@ -47,8 +49,8 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Login"))
-        self.label.setText(_translate("Dialog", "Username"))
-        self.label_2.setText(_translate("Dialog", "Password"))
+        self.label.setText(_translate("Dialog", "Username:"))
+        self.label_2.setText(_translate("Dialog", "Password:"))
         self.loginButton.setText(_translate("Dialog", "Login"))
         self.cancelButton.setText(_translate("Dialog", "Cancel"))
 
