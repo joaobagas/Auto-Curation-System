@@ -118,10 +118,8 @@ class Ui_Dialog(object):
         self.cancelButton.clicked.connect(Dialog.close)
 
     def create_observation(self):
-        photos = ImageLoader.__new__(ImageLoader).obs_images
+        self.photos = ImageLoader.__new__(ImageLoader).obs_images
         self.obs = Observation()
-        for photo in photos:
-            self.obs.local_photos.append(open(photo, 'rb').read())
         self.label.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).current_image))
 
     def on_click_login(self):
@@ -146,7 +144,7 @@ class Ui_Dialog(object):
             self.obs.latitude = self.latitudeLineEdit.text()
             self.obs.longitude = self.longitudeLineEdit.text()
             self.obs.description = self.descriptionTextEdit.toPlainText()
-            inaturalist_api.post_observation(self.obs)
+            inaturalist_api.post_observation(self.obs, self.photos)
 
 
 if __name__ == "__main__":
