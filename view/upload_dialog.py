@@ -10,7 +10,7 @@ import asyncio
 import time
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QDateTimeEdit
 
 from model import inaturalist_api, csv_reader, inaturalist_api
 from view import login_dialog
@@ -138,13 +138,22 @@ class Ui_Dialog(object):
         else:
             self.obs.species_guess = self.nameLineEdit.text()
             self.obs.taxon_id = self.taxonIDLineEdit.text()
-            self.obs.observed_on_string = self.observedOnDateTime.text()
+            self.obs.observed_on_string = self.translate_date(self.observedOnDateTime)
             self.obs.time_zone = self.timezoneLineEdit.currentText()
             self.obs.place_guess = self.placeLineEdit.text()
             self.obs.latitude = self.latitudeLineEdit.text()
             self.obs.longitude = self.longitudeLineEdit.text()
             self.obs.description = self.descriptionTextEdit.toPlainText()
             inaturalist_api.post_observation(self.obs, self.photos)
+
+    def translate_date(self, date: QDateTimeEdit):
+        time = date.text().split(" ")[0].split("/")
+        hour = date.text().split(" ")[1]
+        day = time[0]
+        month = time[1]
+        year = time[2]
+        return "20" + year + "-" + month + "-" + day + " " + hour
+
 
 
 if __name__ == "__main__":
