@@ -12,7 +12,7 @@ import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from model import inaturalist_api, csv_reader
+from model import inaturalist_api, csv_reader, inaturalist_api
 from view import login_dialog
 from model.user_service import UserService
 from model.image_loader import ImageLoader
@@ -120,9 +120,9 @@ class Ui_Dialog(object):
     def create_observation(self):
         photos = ImageLoader.__new__(ImageLoader).obs_images
         self.obs = Observation()
-        #for photo in photos:
-        #    self.obs.local_photos.append(open(photo, 'rb').read())
-        #self.label.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).current_image))
+        for photo in photos:
+            self.obs.local_photos.append(open(photo, 'rb').read())
+        self.label.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).current_image))
 
     def on_click_login(self):
         self.window = QtWidgets.QMainWindow()
@@ -147,7 +147,6 @@ class Ui_Dialog(object):
             self.obs.longitude = self.longitudeLineEdit.text()
             self.obs.description = self.descriptionTextEdit.toPlainText()
             inaturalist_api.post_observation(self.obs)
-        #inaturalist_api.post_observation2()
 
 
 if __name__ == "__main__":
