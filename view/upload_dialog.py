@@ -12,12 +12,11 @@ import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QDateTimeEdit
 
-from model import inaturalist_api, csv_reader, inaturalist_api
+from model import csv_reader, inaturalist_api
 from view import login_dialog
 from model.user_service import UserService
 from model.image_loader import ImageLoader
 from domain.observation import Observation
-from PIL import Image
 
 
 class Ui_Dialog(object):

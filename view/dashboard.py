@@ -25,6 +25,7 @@ class Ui_MainWindow(object):
         self.imageView.setText("")
         self.imageView.setPixmap(QtGui.QPixmap("img/black_image.jpg"))
         self.imageView.setObjectName("imageView")
+        self.imageView.setScaledContents(True)
         self.trainButton = QtWidgets.QPushButton(self.centralwidget)
         self.trainButton.setGeometry(QtCore.QRect(10, 410, 71, 23))
         self.trainButton.setObjectName("trainButton")
@@ -145,7 +146,7 @@ class Ui_MainWindow(object):
     def on_click_edit(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = edit_image.Ui_Dialog()
-        self.ui.setup_editor(ImageLoader.__new__(ImageLoader).current_image)
+        self.ui.setup_editor(ImageLoader.__new__(ImageLoader).current_image, self.imageView)
         self.ui.setupUi(self.window)
         self.window.show()
 

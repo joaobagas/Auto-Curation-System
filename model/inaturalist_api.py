@@ -1,7 +1,5 @@
 # This files holds all the API calls needed for the system to work and the information necessary to perform them.
 
-import base64
-
 from pyinaturalist import *
 
 from model.user_service import UserService
@@ -16,16 +14,30 @@ def login(username, password):
     print(token)
 
 def post_observation(obs: Observation, photos):
-    response = create_observation(
-        access_token=UserService.__new__(UserService).get_access_token(),
-        species_guess=obs.species_guess,
-        taxon_id=obs.taxon_id,
-        observed_on_string=obs.observed_on_string,
-        time_zone=obs.time_zone,
-        place_guess=obs.place_guess,
-        latitude=obs.latitude,
-        longitude=obs.longitude,
-        description=obs.description,
-        photos=photos
-    )
+    response = None
+    if check_values(obs):
+        response = create_observation(
+            access_token=UserService.__new__(UserService).get_access_token(),
+            species_guess=obs.species_guess,
+            taxon_id=obs.taxon_id,
+            observed_on_string=obs.observed_on_string,
+            time_zone=obs.time_zone,
+            place_guess=obs.place_guess,
+            latitude=obs.latitude,
+            longitude=obs.longitude,
+            description=obs.description,
+            photos=photos
+        )
+    print(response)
+
+def check_values(obs: Observation):
+    if obs.latitude == "" or obs.longitude == "":
+        if obs.latitude == "" and obs.longitude == "":
+            return True
+        return False
+    elif int(obs.latitude) < -90 or int(obs.latitude) > 90:
+        return False
+    elif int(obs.longitude) < -180 or int(obs.longitude) > 180:
+        return False
+    return True
 
