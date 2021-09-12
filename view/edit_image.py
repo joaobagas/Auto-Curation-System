@@ -68,6 +68,9 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+        self.plus = 1.25
+        self.minus = 0.8
+
         self.set_buttons(Dialog)
 
 
@@ -103,42 +106,43 @@ class Ui_Dialog(object):
         self.lessSharpnessButton.clicked.connect(self.on_clicked_less_sharpness)
         self.cropButton.clicked.connect(self.on_click_crop)
         self.saveButton.clicked.connect(self.on_click_save)
-        self.cancelButton.clicked.connect(Dialog.close)
+        self.cancelButton.clicked.connect(self.on_click_close)
+        self.close = Dialog.close
 
     def setup_editor(self, path, image_view: QtWidgets.QLabel):
         self.editor = image_editor.ImageEditor(path)
         self.image_view = image_view
 
     def on_clicked_more_brightness(self):
-        self.editor.change_brightness(2)
+        self.editor.change_brightness(self.plus)
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_clicked_less_brightness(self):
-        self.editor.change_brightness(0.5)
+        self.editor.change_brightness(self.minus)
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_clicked_more_contrast(self):
-        self.editor.change_contrast(2)
+        self.editor.change_contrast(self.plus)
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_clicked_less_contrast(self):
-        self.editor.change_contrast(0.5)
+        self.editor.change_contrast(self.minus)
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_clicked_more_saturation(self):
-        self.editor.change_saturation(2)
+        self.editor.change_saturation(self.plus)
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_clicked_less_saturation(self):
-        self.editor.change_saturation(0.5)
+        self.editor.change_saturation(self.minus)
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_clicked_more_sharpness(self):
-        self.editor.change_sharpness(2)
+        self.editor.change_sharpness(self.plus)
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_clicked_less_sharpness(self):
-        self.editor.change_sharpness(0.5)
+        self.editor.change_sharpness(self.minus)
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_click_crop(self):
@@ -147,6 +151,9 @@ class Ui_Dialog(object):
 
     def on_click_save(self):
         self.editor.save("Test")
+
+    def on_click_close(self):
+        self.close()
 
 if __name__ == "__main__":
     import sys

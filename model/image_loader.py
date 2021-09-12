@@ -11,6 +11,7 @@ class ImageLoader(object):
     images = []  # Will store all the images
     obs_images = []  # Will store all the images related to the current observation
     obs_images_pointer = -1
+    temp_image = None
 
     current_observation = None
     current_image = 'img/black_image.jpg'
@@ -116,3 +117,6 @@ class ImageLoader(object):
         else:
             self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
+
+    def load_current(self):
+        print(self.current_image)

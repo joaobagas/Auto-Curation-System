@@ -104,18 +104,21 @@ class Ui_MainWindow(object):
 
     def on_click_train(self):
         self.window = QtWidgets.QMainWindow()
+        self.window.setWindowModality(QtCore.Qt.ApplicationModal)
         self.ui = load_training_dialog.Ui_Dialog()
         self.ui.setupUi(self.window)
         self.window.show()
 
     def on_click_run(self):
         self.window = QtWidgets.QMainWindow()
+        self.window.setWindowModality(QtCore.Qt.ApplicationModal)
         self.ui = load_video_dialog.Ui_Dialog()
         self.ui.setupUi(self.window)
         self.window.show()
 
     def on_click_upload(self):
         self.window = QtWidgets.QMainWindow()
+        self.window.setWindowModality(QtCore.Qt.ApplicationModal)
         self.ui = upload_dialog.Ui_Dialog()
         self.ui.setupUi(self.window)
         self.ui.create_observation()
@@ -145,10 +148,12 @@ class Ui_MainWindow(object):
 
     def on_click_edit(self):
         self.window = QtWidgets.QMainWindow()
+        self.window.setWindowModality(QtCore.Qt.ApplicationModal)
         self.ui = edit_image.Ui_Dialog()
         self.ui.setup_editor(ImageLoader.__new__(ImageLoader).current_image, self.imageView)
         self.ui.setupUi(self.window)
         self.window.show()
+
 
 
 if __name__ == "__main__":
