@@ -23,7 +23,6 @@ class ImageLoader(object):
 
     def load(self):
         directory = 'img/observations'
-        print(os.listdir(directory))
         for filename in os.listdir(directory):
             if filename.endswith(".jpg"):
                 self.images.append(directory+"/"+filename)
@@ -85,6 +84,7 @@ class ImageLoader(object):
             self.current_observation = None
         else:
             self.current_observation = self.observations[self.obs_pointer]
+        self.load_obs()
         return self.current_observation
 
     def prev_photo(self):
@@ -116,7 +116,5 @@ class ImageLoader(object):
             self.current_image = 'img/black_image.jpg'
         else:
             self.current_image = self.obs_images[self.obs_images_pointer]
+        self.load_obs()
         return self.current_image
-
-    def load_current(self):
-        print(self.current_image)
