@@ -146,7 +146,7 @@ class Ui_Dialog(object):
         self.image_view.setPixmap(self.editor.img.toqpixmap())
 
     def on_click_crop(self):
-        values = str(QInputDialog.getText(None, "Input", "What is the title you want?")[0])
+        values = str(QInputDialog.getText(None, "Input", "Write the points to crop!\n(e.g. 0,0,100,100)")[0])
         value_array = values.split(",")
         if len(value_array) == 4:
             int_array = []

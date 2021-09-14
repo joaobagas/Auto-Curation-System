@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QLineEdit, QMessageBox
 
-from model import inaturalist_api
+from model import inaturalist_api, popup_window
 from model.user_service import UserService
 
 
@@ -63,11 +63,7 @@ class Ui_Dialog(object):
         if UserService.__new__(UserService).get_access_token() is not None:
             self.cancelButton.click()
         else:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Critical)
-            msg.setText("Error: Try logging in with different credentials!")
-            msg.setWindowTitle("Error")
-            msg.exec_()
+            popup_window.warning("Try logging in with different credentials!")
 
 
 if __name__ == "__main__":

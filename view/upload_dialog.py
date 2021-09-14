@@ -12,7 +12,7 @@ import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QDateTimeEdit
 
-from model import csv_reader, inaturalist_api
+from model import csv_reader, inaturalist_api, popup_window
 from view import login_dialog
 from model.user_service import UserService
 from model.image_loader import ImageLoader
@@ -108,8 +108,8 @@ class Ui_Dialog(object):
         self.label_8.setText(_translate("Dialog", "Timezone:"))
         self.label_9.setText(_translate("Dialog", "Place:"))
         self.loginButton.setText(_translate("Dialog", "Login"))
-        for timezone in csv_reader.get_timezones():
-            self.timezoneLineEdit.addItem(str(timezone))
+
+        self.load_timezone()
 
     def set_buttons(self, Dialog):
         self.loginButton.clicked.connect(self.on_click_login)
@@ -129,21 +129,31 @@ class Ui_Dialog(object):
 
     def on_click_upload(self):
         if UserService.__new__(UserService).get_username() is None:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Critical)
-            msg.setText("Error: User not logged in!")
-            msg.setWindowTitle("Error")
-            msg.exec_()
+            popup_window.warning("User not logged in!")
         else:
             self.obs.species_guess = self.nameLineEdit.text()
             self.obs.taxon_id = self.taxonIDLineEdit.text()
             self.obs.observed_on_string = self.translate_date(self.observedOnDateTime)
-            self.obs.time_zone = self.timezoneLineEdit.currentText()
+            self.obs.time_zone = self.translate_timezone(self.timezoneLineEdit.currentText())
             self.obs.place_guess = self.placeLineEdit.text()
             self.obs.latitude = self.latitudeLineEdit.text()
             self.obs.longitude = self.longitudeLineEdit.text()
             self.obs.description = self.descriptionTextEdit.toPlainText()
-            inaturalist_api.post_observation(self.obs, self.photos)
+            response = inaturalist_api.post_observation(self.obs, self.photos)
+        if response:
+            self.cancelButton.click()
+        else:
+            popup_window.warning("Something went wrong!")
+
+    def load_timezone(self):
+        self.timezones = csv_reader.get_timezones()
+        for timezone in self.timezones:
+            self.timezoneLineEdit.addItem(str(timezone[1]))
+
+    def translate_timezone(self, tz):
+        for timezone in self.timezones:
+            if timezone[1] == tz:
+                return timezone[0]
 
     def translate_date(self, date: QDateTimeEdit):
         time = date.text().split(" ")[0].split("/")

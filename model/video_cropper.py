@@ -21,5 +21,5 @@ def crop(location, obs, times):
 
 def trim(video, start, end, title):
     # End and start are displayed in seconds
-    path = title + ".mp4"
+    path = title[0] + ".mp4"
     ffmpeg_extract_subclip(video, start, end, targetname=path)

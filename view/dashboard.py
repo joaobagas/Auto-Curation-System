@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from model import popup_window
 from model.image_loader import ImageLoader
 from view import load_training_dialog, load_video_dialog, upload_dialog, edit_image
 
@@ -138,10 +139,17 @@ class Ui_MainWindow(object):
         self.nameLineEdit.setText(ImageLoader.__new__(ImageLoader).get_obs())
 
     def on_click_rejectButton(self):
-        ImageLoader.__new__(ImageLoader).delete_obs()
+        try:
+            ImageLoader.__new__(ImageLoader).delete_obs()
+        except:
+            popup_window.warning("The was an error deleting the observation!")
 
     def on_click_deleteImageButton(self):
-        self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).delete_photo()))
+        try:
+            self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).delete_photo()))
+        except:
+            popup_window.warning("The was an error deleting the image!")
+
 
     def on_click_edit(self):
         self.window = QtWidgets.QMainWindow()

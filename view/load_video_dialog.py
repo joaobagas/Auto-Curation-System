@@ -9,9 +9,9 @@
 
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QInputDialog
 
-from model import video_cropper
+from model import video_cropper, popup_window
 from model.image_loader import ImageLoader
 from view import video_player_dialog
 
@@ -77,8 +77,18 @@ class Ui_Dialog(object):
         self.files = files[0]
 
     def on_click_run(self):
+        values = str(QInputDialog.getText(None, "Input", "Write the title and the frames separated by commas!\n(e.g. Test,1000,2000)")[0])
+        title = ""
+        int_array = []
+        if len(values.split(",")) > 1:
+            int_array = []
+            title = values.split(",")[0]
+            others = values.split(",")
+            others.pop(0)
+            for v in others:
+                int_array.append(int(v))
         try:
-            video_cropper.crop(self.files[0], "1.Lion", [1000, 1005])
+            video_cropper.crop(self.files[0], title, int_array)
             ImageLoader.__new__(ImageLoader).load()
             self.statusLabel.setText("Status: Upload was successful!")
         except:
@@ -91,6 +101,8 @@ class Ui_Dialog(object):
             self.ui.setupUi(self.window)
             self.ui.setup_media(self.files)
             self.window.show()
+        else:
+            popup_window.warning("No video was selected!")
 
 
 if __name__ == "__main__":

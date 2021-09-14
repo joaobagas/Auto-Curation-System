@@ -14,6 +14,7 @@ from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import QInputDialog
 
+from model import popup_window
 from model.video_cropper import trim
 
 
@@ -119,9 +120,12 @@ class Ui_Dialog(object):
             self.trimEnd = (position - position % 1000) / 1000
 
     def on_click_save(self):
-        title = str(QInputDialog.getText(None, "Input", "What is the title you want?"))
-        if title is not None:
-            trim(self.videos[self.video_pointer], self.trimStart, self.trimEnd, title)
+        if self.trimEnd and self.trimStart:
+            title = str(QInputDialog.getText(None, "Input", "What is the title you want?"))
+            if title is not None:
+                trim(self.videos[self.video_pointer], self.trimStart, self.trimEnd, title)
+        else:
+            popup_window.warning("You need to select a start and end to trim!")
 
     def video_position_changed(self, position):
         self.videoSlider.setValue(position)

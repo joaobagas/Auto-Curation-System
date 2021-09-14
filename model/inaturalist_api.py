@@ -28,7 +28,7 @@ def post_observation(obs: Observation, photos):
             description=obs.description,
             photos=photos
         )
-    print(response)
+    return response
 
 def check_values(obs: Observation):
     if obs.latitude == "" or obs.longitude == "":

@@ -76,7 +76,7 @@ class ImageLoader(object):
     def delete_obs(self):
         self.observations.pop(self.obs_pointer)
         for image in self.obs_images:
-            os.remove(image)
+            os.remove(image) # FileNotFoundError: [Errno 2] Ficheiro ou pasta inexistente: 'img/observations/Cunt-acs-100.jpg'
         if self.obs_pointer > len(self.observations) - 1:
             self.obs_pointer -= 1
         if len(self.obs_pointer) == 0:
