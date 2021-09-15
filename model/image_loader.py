@@ -54,7 +54,6 @@ class ImageLoader(object):
         elif self.observations != [] and self.obs_pointer > 0:
             self.obs_pointer -= 1
             self.current_observation = self.observations[self.obs_pointer]
-        self.load_obs()
         if self.obs_images:
             self.obs_images_pointer = 0
             self.current_image = self.obs_images[self.obs_images_pointer]
@@ -67,24 +66,25 @@ class ImageLoader(object):
         elif self.observations != [] and self.obs_pointer < len(self.observations) - 1:
             self.obs_pointer += 1
             self.current_observation = self.observations[self.obs_pointer]
-        self.load_obs()
+        elif len(self.observations) == 0:
+            self.obs_pointer = -1
+            self.current_image = 'img/black_image.jpg'
         if self.obs_images:
             self.obs_images_pointer = 0
             self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
 
     def delete_obs(self):
-        self.observations.pop(self.obs_pointer)
         for image in self.obs_images:
-            os.remove(image) # FileNotFoundError: [Errno 2] Ficheiro ou pasta inexistente: 'img/observations/Cunt-acs-100.jpg'
+            os.remove(image)
+        self.observations.pop(self.obs_pointer)
         if self.obs_pointer > len(self.observations) - 1:
             self.obs_pointer -= 1
-        if len(self.obs_pointer) == 0:
+        if len(self.observations) == 0:
             self.obs_pointer = -1
             self.current_observation = None
         else:
             self.current_observation = self.observations[self.obs_pointer]
-        self.load_obs()
         return self.current_observation
 
     def prev_photo(self):
@@ -109,12 +109,12 @@ class ImageLoader(object):
         self.obs_images.pop(self.obs_images_pointer)
         os.remove(self.current_image)
         if self.obs_images_pointer > len(self.obs_images) - 1:
-            self.obs_images_pointer -= 1
-        if len(self.obs_images) == 0:
+            self.obs_images_pointer = -1
+            self.current_image = 'img/black_image.jpg'
+        elif len(self.obs_images) == 0:
             self.observations.pop(self.obs_pointer)
             self.obs_images_pointer = -1
             self.current_image = 'img/black_image.jpg'
         else:
             self.current_image = self.obs_images[self.obs_images_pointer]
-        self.load_obs()
         return self.current_image

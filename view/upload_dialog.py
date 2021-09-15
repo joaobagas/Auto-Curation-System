@@ -116,7 +116,8 @@ class Ui_Dialog(object):
         self.uploadButton.clicked.connect(self.on_click_upload)
         self.cancelButton.clicked.connect(Dialog.close)
 
-    def create_observation(self):
+    def create_observation(self, name):
+        self.nameLineEdit.setText(name)
         self.photos = ImageLoader.__new__(ImageLoader).obs_images
         self.obs = Observation()
         self.label.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).current_image))
