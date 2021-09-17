@@ -77,20 +77,23 @@ class Ui_Dialog(object):
         self.files = files[0]
 
     def on_click_run(self):
-        values = str(QInputDialog.getText(None, "Input", "Write the title and the frames separated by commas!\n(e.g. Test,1000,2000)")[0])
-        title = ""
-        int_array = []
-        if len(values.split(",")) > 1:
-            int_array = []
-            title = values.split(",")[0]
-            others = values.split(",")
-            others.pop(0)
-            for v in others:
-                int_array.append(int(v))
+        values = []
+        info_array = []
+        for i in range(len(self.files)):
+            values.append(str(QInputDialog.getText(None, "Input", "Write the title and the frames separated by commas!\nVideo = "+self.files[i]+"\n(e.g. Test,1000,2000)")[0]))
+            if len(values[i].split(",")) > 1:
+                int_array = []
+                title = values[i].split(",")[0]
+                others = values[i].split(",")
+                others.pop(0)
+                for v in others:
+                    int_array.append(int(v))
+                info_array.append([title, int_array])
         try:
-            video_cropper.crop(self.files[0], title, int_array)
-            ImageLoader.__new__(ImageLoader).load()
-            self.statusLabel.setText("Status: Upload was successful!")
+            for i in range(len(info_array)):
+                video_cropper.crop(self.files[i], info_array[i][0], info_array[i][1])
+                ImageLoader.__new__(ImageLoader).load()
+            self.statusLabel.setText("Status: Crop was successful!")
         except:
             self.statusLabel.setText("Status: There was an error!")
 
