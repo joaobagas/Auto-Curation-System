@@ -2,12 +2,10 @@ import cv2
 
 from change import detect_change
 from detection import detect_animal
-from enhancement import enhance_brightness
+from enhancement import enhance_brightness_and_contrast
 
 
 # https://learnopencv.com/read-write-and-display-a-video-using-opencv-cpp-python/
-
-
 def auto_curation(mov):
     cap = cv2.VideoCapture()
 
@@ -35,4 +33,4 @@ def auto_curation(mov):
         detect_animal(frame)
 
     for frame in frames_with_animals:
-        enhance_brightness(frame)
+        enhance_brightness_and_contrast(frame)

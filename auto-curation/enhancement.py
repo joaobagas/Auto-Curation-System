@@ -2,7 +2,7 @@ import cv2
 
 
 # https://answers.opencv.org/question/75510/how-to-make-auto-adjustmentsbrightness-and-contrast-for-image-android-opencv-image-correction/
-def enhance_brightness(img):
+def enhance_brightness_and_contrast(img):
     alow = img.min()
     ahigh = img.max()
     amax = 255
