@@ -11,6 +11,7 @@ pyqt5-plugins = "*"
 pillow = "*"
 moviepy = "*"
 pyinaturalist = "*"
+tensorflow = "*"
 
 [dev-packages]
 
