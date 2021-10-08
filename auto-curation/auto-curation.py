@@ -5,10 +5,10 @@ from detection import detect_animal
 from enhancement import enhance_brightness_and_contrast
 
 
-# https://learnopencv.com/read-write-and-display-a-video-using-opencv-cpp-python/
 def auto_curation(mov):
     cap = cv2.VideoCapture()
 
+    # Motion Detection - Transforms the video into an array of frames.
     if (cap.isOpened() == False):
         print("Error")
     frames_with_movement = []
@@ -18,19 +18,19 @@ def auto_curation(mov):
         if ret == True:
             if prev_frame is not None:
                 detect_change(frame, prev_frame, 20)
-                cv2.imshow('Frame', frame)
                 if cv2.waitKey(25) & 0xFF == ord('q'):
                     break
             prev_frame = frame
         else:
             break
-
     cap.release()
     cv2.destroyAllWindows()
 
+    # Animal Detection - Checks the array of frames for animals and creates another array.
     frames_with_animals = []
     for frame in frames_with_movement:
         detect_animal(frame)
 
+    # Image Editing - Edits the images left in the array.
     for frame in frames_with_animals:
         enhance_brightness_and_contrast(frame)

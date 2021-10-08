@@ -12,6 +12,9 @@ pillow = "*"
 moviepy = "*"
 pyinaturalist = "*"
 tensorflow = "*"
+humanfriendly = "*"
+matplotlib = "*"
+pandas = "*"
 
 [dev-packages]
 
