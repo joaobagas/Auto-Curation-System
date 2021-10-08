@@ -1,8 +1,8 @@
 import cv2
 
-from change import detect_change
-from detection import detect_animal
-from enhancement import enhance_brightness_and_contrast
+from change import *
+from detection import *
+from enhancement import *
 
 
 def auto_curation(mov):
@@ -34,3 +34,5 @@ def auto_curation(mov):
     # Image Editing - Edits the images left in the array.
     for frame in frames_with_animals:
         enhance_brightness_and_contrast(frame)
+
+    # Image selection - Here we are going to use the model's certainty to get the best photos.

@@ -28,6 +28,28 @@ def start():
     print('TensorFlow version:', tf.__version__)
     print('Is GPU available? tf.test.is_gpu_available:', tf.test.is_gpu_available())
 
+def detect_animal():
+    image_file_names = ["test.jpeg"]
+    model_file = "files/md_v4.1.0.pb"
+    output_dir = "./result"
+
+    detection_results = load_and_run_detector(model_file, image_file_names, output_dir, render_confidence_threshold=0.5)
+    print("----Results----")
+    print(detection_results)
+    print("---------------")
+
+    # size = (480,270)
+    size = (1000, 676)
+    im = Image.open("test.jpeg")
+    im = im.resize(size)
+
+    # Overwrite bbox
+    draw_bboxs(detection_results[0]['detections'], im)
+
+    # Show
+    plt.imshow(im)
+    plt.show()
+    plt.title(f"image with bbox")
 
 # From https://github.com/microsoft/CameraTraps/blob/master/detection/run_tf_detector.py
 def load_and_run_detector(model_file, image_file_names, output_dir,
