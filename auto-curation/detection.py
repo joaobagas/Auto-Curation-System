@@ -15,8 +15,8 @@ import statistics
 from tqdm import tqdm
 import tensorflow.compat.v1 as tf
 
-from CameraTraps.detection.run_tf_detector import TFDetector
-from CameraTraps.visualization.visualization_utils import load_image
+from CameraTraps.detection.run_tf_detector import TFDetector, ImagePathUtils
+from CameraTraps.visualization.visualization_utils import load_image, render_detection_bounding_boxes
 from CameraTraps.ct_utils import truncate_float
 
 
@@ -28,10 +28,11 @@ def start():
     print('TensorFlow version:', tf.__version__)
     print('Is GPU available? tf.test.is_gpu_available:', tf.test.is_gpu_available())
 
-def detect_animal():
+
+def detect_animal(frames):
     image_file_names = ["test.jpeg"]
     model_file = "files/md_v4.1.0.pb"
-    output_dir = "./result"
+    output_dir = "result"
 
     detection_results = load_and_run_detector(model_file, image_file_names, output_dir, render_confidence_threshold=0.5)
     print("----Results----")
@@ -50,6 +51,7 @@ def detect_animal():
     plt.imshow(im)
     plt.show()
     plt.title(f"image with bbox")
+
 
 # From https://github.com/microsoft/CameraTraps/blob/master/detection/run_tf_detector.py
 def load_and_run_detector(model_file, image_file_names, output_dir,
@@ -154,11 +156,6 @@ def load_and_run_detector(model_file, image_file_names, output_dir,
 
 
 def draw_bboxs(detections_list, im):
-    """
-    detections_list: list of set includes bbox.
-    im: image read by Pillow.
-    """
-
     for detection in detections_list:
         x1, y1, w_box, h_box = detection["bbox"]
         ymin, xmin, ymax, xmax = y1, x1, y1 + h_box, x1 + w_box
@@ -168,16 +165,5 @@ def draw_bboxs(detections_list, im):
         imageHeight = im.size[1]
         (left, right, top, bottom) = (xmin * imageWidth, xmax * imageWidth,
                                       ymin * imageHeight, ymax * imageHeight)
-
         draw.line([(left, top), (left, bottom), (right, bottom),
                    (right, top), (left, top)], width=4, fill='Red')
-
-# This might not be used
-# https://stackoverflow.com/questions/51278213/what-is-the-use-of-a-pb-file-in-tensorflow-and-how-does-it-work
-def load_pb():
-    with tf.io.gfile.GFile("files/md_v4.1.0.pb", "rb") as f:
-        graph_def = tf.compat.v1.GraphDef()
-        graph_def.ParseFromString(f.read())
-    with tf.Graph().as_default() as graph:
-        tf.import_graph_def(graph_def, name='')
-        return graph

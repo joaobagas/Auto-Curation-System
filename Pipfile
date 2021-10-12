@@ -15,6 +15,7 @@ tensorflow = "*"
 humanfriendly = "*"
 matplotlib = "*"
 pandas = "*"
+jsonpickle = "*"
 
 [dev-packages]
 
