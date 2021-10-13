@@ -4,7 +4,11 @@ import cv2
 def detect_change(img1, img2):
     pixel_change = 5
     threshold = 900
+    x_size = 300
+    y_size = 300
 
+    img1 = cv2.resize(img1, (x_size, y_size))
+    img2 = cv2.resize(img2, (x_size, y_size))
     img3 = cv2.subtract(img1, img2)
     img4 = cv2.subtract(img2, img1)
 
@@ -21,6 +25,5 @@ def detect_change(img1, img2):
                 count2 += 1
 
     if count1 > threshold and count2 > threshold:
-        print("c1: " + str(count1) + " | c2: " + str(count2))
         return True
     return False
