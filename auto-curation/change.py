@@ -3,9 +3,9 @@ import cv2
 
 def detect_change(img1, img2):
     pixel_change = 5
-    threshold = 900
-    x_size = 300
-    y_size = 300
+    threshold = 50 #900
+    x_size = 50 #300
+    y_size = 50 #300
 
     img1 = cv2.resize(img1, (x_size, y_size))
     img2 = cv2.resize(img2, (x_size, y_size))
