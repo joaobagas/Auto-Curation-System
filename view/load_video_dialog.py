@@ -77,8 +77,10 @@ class Ui_Dialog(object):
         self.files = files[0]
 
     def on_click_run(self):
+        from auto_curation.auto_curation import auto_curation
         values = []
         info_array = []
+        """
         for i in range(len(self.files)):
             values.append(str(QInputDialog.getText(None, "Input", "Write the title and the frames separated by commas!\nVideo = "+self.files[i]+"\n(e.g. Test,1000,2000)")[0]))
             if len(values[i].split(",")) > 1:
@@ -89,11 +91,11 @@ class Ui_Dialog(object):
                 for v in others:
                     int_array.append(int(v))
                 info_array.append([title, int_array])
+        """
         try:
-            for i in range(len(info_array)):
-                video_cropper.crop(self.files[i], info_array[i][0], info_array[i][1])
+            for vid in self.files:
+                auto_curation(vid, self.progressBar, self.statusLabel)
                 ImageLoader.__new__(ImageLoader).load()
-            self.statusLabel.setText("Status: Crop was successful!")
         except:
             self.statusLabel.setText("Status: There was an error!")
 

@@ -64,6 +64,7 @@ def load_and_run_detector_on_video(model_file, images, output_dir,
             # the error code and message is written by generate_detections_one_image,
             # which is wrapped in a big try catch
             continue
+        """
         try:
             # image is modified in place
             render_detection_bounding_boxes(result['detections'], image,
@@ -93,6 +94,7 @@ def load_and_run_detector_on_video(model_file, images, output_dir,
     print('On average, for each image,')
     print('- inference took {}, std dev is {}'.format(humanfriendly.format_timespan(ave_time_infer),
                                                       std_dev_time_infer))
+    """
     return detection_results
 
 def translate_to_tf(imgs):
