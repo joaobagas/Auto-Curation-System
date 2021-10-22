@@ -6,8 +6,9 @@ from auto_curation.enhancement import *
 
 
 def auto_curation(mov, progress, status):
-    print("Test")
+
     progress.setMaximum(100)
+
     # Motion Detection - Transforms the video into an array of frames with movement.
 
     progress.setValue(0)
@@ -22,10 +23,9 @@ def auto_curation(mov, progress, status):
     prev_frame = None
     while (cap.isOpened()):
         current_frame += 1
-        total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         ret, frame = cap.read()
         if ret == True:
-            if prev_frame is not None and saved_frames < 10: # This is because of the
+            if prev_frame is not None:
                 if detect_change(prev_frame, frame):
                     frames_with_movement.append(frame)
                     saved_frames += 1
@@ -53,10 +53,11 @@ def auto_curation(mov, progress, status):
     frame = 0
     for result in detection_results:
         for detection in result['detections']:
-            if int(detection["category"]) == 2 and float(detection["conf"]) > 0.900: # This needs to be changed from 2 to 1
+            if int(detection["category"]) == 1 and float(detection["conf"]) > 0.900:
                 frames_with_animals.append(frames_with_movement[frame])
                 detections.append(detection)
         frame += 1
+    frames_with_movement = None
 
     # Image Editing - Edits the images left in the array.
 
@@ -66,6 +67,7 @@ def auto_curation(mov, progress, status):
     enhanced_frames = []
     for frame in frames_with_animals:
         enhanced_frames.append(enhance_brightness_and_contrast(frame))
+    frames_with_animals = None
 
     # Image selection - Here we are going to use the model's certainty to get the best photos.
 
@@ -78,12 +80,11 @@ def auto_curation(mov, progress, status):
         if detections[count]["conf"] > 0.998:
             selected_frames.append(frame)
         count += 1
-
+    enhanced_frames = None
+    
     # Return the images.
 
     progress.setValue(100)
     status.setText("Status: Process finished!")
 
     return selected_frames
-
-#auto_curation("camera_trap_2.mp4")
