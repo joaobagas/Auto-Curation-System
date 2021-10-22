@@ -57,7 +57,7 @@ def auto_curation(mov, progress, status):
                 frames_with_animals.append(frames_with_movement[frame])
                 detections.append(detection)
         frame += 1
-    frames_with_movement = None
+    del frames_with_movement, detection_results
 
     # Image Editing - Edits the images left in the array.
 
@@ -67,7 +67,7 @@ def auto_curation(mov, progress, status):
     enhanced_frames = []
     for frame in frames_with_animals:
         enhanced_frames.append(enhance_brightness_and_contrast(frame))
-    frames_with_animals = None
+    del frames_with_animals
 
     # Image selection - Here we are going to use the model's certainty to get the best photos.
 
@@ -80,7 +80,7 @@ def auto_curation(mov, progress, status):
         if detections[count]["conf"] > 0.998:
             selected_frames.append(frame)
         count += 1
-    enhanced_frames = None
+    del enhanced_frames
     
     # Return the images.
 
