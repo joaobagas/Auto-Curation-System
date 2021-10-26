@@ -24,7 +24,7 @@ class ImageLoader(object):
     def load(self):
         directory = 'img/observations'
         for filename in os.listdir(directory):
-            if filename.endswith(".jpg"):
+            if filename.endswith(".jpeg"):
                 self.images.append(directory+"/"+filename)
                 strings = filename.split("-")
                 if not strings[0] in self.observations:
