@@ -82,7 +82,8 @@ def auto_curation(mov, progress, status):
     count = 0
     for frame in enhanced_frames:
         if detections[count]["conf"] > 0.998:
-            im = Image.fromarray(frame)
+            im_cvt = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            im = Image.fromarray(im_cvt)
             im.save("img/observations/test-ACS-" + str(count) + ".jpeg")
         count += 1
     del enhanced_frames
@@ -92,4 +93,4 @@ def auto_curation(mov, progress, status):
     progress.setValue(100)
     status.setText("Status: Process finished!")
 
-    return selected_frames #/run/user/1000/doc/e8a27443/camera_trap_2.mp4
+    return selected_frames
