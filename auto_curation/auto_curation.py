@@ -59,22 +59,20 @@ def auto_curation(mov, progress, status):
     translated_frames = translate_to_tf(frames_with_movement)
     detection_results = load_and_run_detector_on_video(model_file, translated_frames, output_dir, render_confidence_threshold=0.5)
 
-    was_deleted_from_array = False
     frame = 0
     for result in detection_results:
         for detection in result['detections']:
-            print(observation_nums)
-            if int(detection["category"]) == 2 and float(detection["conf"]) > 0.900: #Test it should be 1
-                was_deleted_from_array = True
+            if int(detection["category"]) == 1:  # 1 -> Animal | 2 -> Person
                 frames_with_animals.append(frames_with_movement[frame])
                 detections.append(detection)
-            elif was_deleted_from_array is False:
-                was_deleted_from_array = True
+                break
+            else:
                 observation_nums.pop(frame)
                 frame -= 1
-        was_deleted_from_array = False
+                break
         frame += 1
     del frames_with_movement, detection_results
+
     # Image Editing - Edits the images left in the array.
 
     progress.setValue(50)
