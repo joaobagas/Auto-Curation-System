@@ -1,7 +1,7 @@
 # This file holds the function which is used to crop frames off a video and save them.
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
-
+"""
 def crop(location, obs, times):
     # The imports had to be placed inside of the function due to incompatibilities between PyQt5 and Open-CV
     from cv2 import VideoCapture, imwrite, destroyAllWindows
@@ -17,7 +17,7 @@ def crop(location, obs, times):
             print("There was an error loading the frame!")
     cap.release()
     destroyAllWindows()
-
+"""
 
 def trim(video, start, end, title):
     # End and start are displayed in seconds

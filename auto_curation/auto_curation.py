@@ -20,15 +20,15 @@ def auto_curation(mov, progress, status):
     current_frame = 0
     frames_skipped = 50
     observation = 0
-    if (cap.isOpened() == False):
+    if cap.isOpened() is False:
         print("Error")
     frames_with_movement = []
     prev_frame = None
-    while (cap.isOpened()):
+    while cap.isOpened():
         current_frame += 1
         ret, frame = cap.read()
-        if ret == True:
-            if prev_frame is not None and saved_frames < 5:
+        if ret is True:
+            if prev_frame is not None:
                 if detect_change(prev_frame, frame):
                     if frames_skipped > 50:
                         observation += 1
@@ -88,9 +88,7 @@ def auto_curation(mov, progress, status):
     progress.setValue(75)
     status.setText("Status: 4/4 Selecting the frames!")
 
-    selected_frames = []
     count = 0
-
     now = datetime.now()
     timestamp = now.strftime("%d%m%Y%H%M%S")
 
@@ -106,5 +104,3 @@ def auto_curation(mov, progress, status):
 
     progress.setValue(100)
     status.setText("Status: Process finished!")
-
-    return selected_frames

@@ -9,9 +9,9 @@
 
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QInputDialog
+from PyQt5.QtWidgets import QFileDialog
 
-from model import video_cropper, popup_window
+from model import popup_window
 from model.image_loader import ImageLoader
 from view import video_player_dialog
 
@@ -78,20 +78,6 @@ class Ui_Dialog(object):
 
     def on_click_run(self):
         from auto_curation.auto_curation import auto_curation
-        values = []
-        info_array = []
-        """
-        for i in range(len(self.files)):
-            values.append(str(QInputDialog.getText(None, "Input", "Write the title and the frames separated by commas!\nVideo = "+self.files[i]+"\n(e.g. Test,1000,2000)")[0]))
-            if len(values[i].split(",")) > 1:
-                int_array = []
-                title = values[i].split(",")[0]
-                others = values[i].split(",")
-                others.pop(0)
-                for v in others:
-                    int_array.append(int(v))
-                info_array.append([title, int_array])
-        """
         try:
             for vid in self.files:
                 auto_curation(vid, self.progressBar, self.statusLabel)
