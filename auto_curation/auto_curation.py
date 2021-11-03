@@ -1,11 +1,13 @@
 from datetime import datetime
 
+from PIL import Image
+
 from auto_curation.change import *
 from auto_curation.detect import *
 from auto_curation.enhancement import *
 
 
-def auto_curation(mov, progress, status):
+def auto_curation(path, progress, status, is_video):
 
     progress.setMaximum(100)
 
@@ -14,38 +16,11 @@ def auto_curation(mov, progress, status):
     progress.setValue(0)
     status.setText("Status: 1/4 Running motion detection!")
 
-    cap = cv2.VideoCapture(mov)
-    observation_nums = []
-    saved_frames = 0
-    current_frame = 0
-    frames_skipped = 50
-    observation = 0
-    if cap.isOpened() is False:
-        print("Error")
-    frames_with_movement = []
-    prev_frame = None
-    while cap.isOpened():
-        current_frame += 1
-        ret, frame = cap.read()
-        if ret is True:
-            if prev_frame is not None:
-                if detect_change(prev_frame, frame):
-                    if frames_skipped > 50:
-                        observation += 1
-                    frames_with_movement.append(frame)
-                    observation_nums.append(observation)
-                    frames_skipped = 0
-                    saved_frames += 1
-                else:
-                    frames_skipped += 1
-                if cv2.waitKey(25) & 0xFF == ord('q'):
-                    break
-            prev_frame = frame
-        else:
-            break
-    cap.release()
-    cv2.destroyAllWindows()
-    print("Frames with motion: " + str(saved_frames))
+    if is_video:
+        observation_nums, frames_with_movement = load_from_video(path)
+    else:
+        observation_nums, frames_with_movement = load_from_folder(path)
+
 
     # Animal Detection - Checks the array of frames for animals and creates another array.
 
@@ -104,3 +79,43 @@ def auto_curation(mov, progress, status):
 
     progress.setValue(100)
     status.setText("Status: Process finished!")
+
+def load_from_video(mov):
+    cap = cv2.VideoCapture(mov)
+    observation_nums = []
+    saved_frames = 0
+    current_frame = 0
+    frames_skipped = 50
+    observation = 0
+    if cap.isOpened() is False:
+        print("Error")
+    frames_with_movement = []
+    prev_frame = None
+    while cap.isOpened():
+        current_frame += 1
+        ret, frame = cap.read()
+        if ret is True:
+            if prev_frame is not None:
+                if detect_change(prev_frame, frame):
+                    if frames_skipped > 50:
+                        observation += 1
+                    frames_with_movement.append(frame)
+                    observation_nums.append(observation)
+                    frames_skipped = 0
+                    saved_frames += 1
+                else:
+                    frames_skipped += 1
+                if cv2.waitKey(25) & 0xFF == ord('q'):
+                    break
+            prev_frame = frame
+        else:
+            break
+    cap.release()
+    cv2.destroyAllWindows()
+    print("Frames with motion: " + str(saved_frames))
+
+    return observation_nums, frames_with_movement
+
+def load_from_folder(path):
+    img = cv2.imread(path)
+    return [1], [img]

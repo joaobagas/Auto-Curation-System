@@ -10,7 +10,7 @@ import asyncio
 import time
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QDateTimeEdit
+from PyQt5.QtWidgets import QDateTimeEdit
 
 from model import csv_reader, inaturalist_api, popup_window
 from view import login_dialog

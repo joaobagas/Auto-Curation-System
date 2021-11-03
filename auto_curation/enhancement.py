@@ -11,8 +11,8 @@ def enhance_brightness_and_contrast(img):
     # calculate alpha, beta
     alpha = ((amax - amin) / (ahigh - alow))
     beta = amin - alow * alpha
+
     # perform the operation g(x,y)= α * f(x,y)+ β
     new_img = cv2.convertScaleAbs(img, alpha=alpha, beta=beta)
 
-    # return [new_img, alpha, beta]
     return new_img
