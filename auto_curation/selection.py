@@ -46,10 +46,11 @@ def select_highest_values(array):
     index = 0
     indexes = []
     for val in array:
-        if val > (highest + 0.001):
+        print(str(val))
+        if val > (highest + 1000):
             indexes.clear()
             indexes.append(index)
-        elif val < (highest - 0.001):
+        elif val < (highest - 1000):
             pass
         else:
             indexes.append(index)

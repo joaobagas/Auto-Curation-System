@@ -78,18 +78,18 @@ class Ui_Dialog(object):
 
     def on_click_run(self):
         from auto_curation.auto_curation import auto_curation
-        #try:
-        for file in self.files:
-            # Here I need to check if the file is a folder or a video.
-            if file.endswith(".mp4"):
-                is_video = True
-            else:
-                is_video = False
+        try:
+            for file in self.files:
+                # Here I need to check if the file is a folder or a video.
+                if file.endswith(".mp4"):
+                    is_video = True
+                else:
+                    is_video = False
 
-            auto_curation(file, self.progressBar, self.statusLabel, is_video)
-            ImageLoader.__new__(ImageLoader).load()
-        #except:
-            #self.statusLabel.setText("Status: There was an error!")
+                auto_curation(file, self.progressBar, self.statusLabel, is_video)
+                ImageLoader.__new__(ImageLoader).load()
+        except:
+            self.statusLabel.setText("Status: There was an error!")
 
     def on_click_play(self):
         if self.files:

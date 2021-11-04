@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from PIL import Image
@@ -38,7 +39,7 @@ def auto_curation(path, progress, status, is_video):
     frame = 0
     for result in detection_results:
         for detection in result['detections']:
-            if int(detection["category"]) == 2:  # 1 -> Animal | 2 -> Person
+            if int(detection["category"]) == 1:  # 1 -> Animal | 2 -> Person
                 frames_with_animals.append(frames_with_movement[frame])
                 detections.append(detection)
                 break
@@ -82,7 +83,7 @@ def load_from_video(mov):
         print("Error")
     frames_with_movement = []
     prev_frame = None
-    while cap.isOpened() and saved_frames < 5:
+    while cap.isOpened():
         current_frame += 1
         ret, frame = cap.read()
         if ret is True:
@@ -108,5 +109,9 @@ def load_from_video(mov):
     return observation_nums, frames_with_movement
 
 def load_from_folder(path):
-    img = cv2.imread(path)
-    return [1], [img]
+    images = []
+    for filename in os.listdir(path):
+        img = cv2.imread(os.path.join(path, filename))
+        if img is not None:
+            images.append(img)
+    return images
