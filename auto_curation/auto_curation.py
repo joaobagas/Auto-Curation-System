@@ -108,6 +108,7 @@ def load_from_video(mov):
 
     return observation_nums, frames_with_movement
 
+
 def load_from_folder(path):
     images = []
     for filename in os.listdir(path):
