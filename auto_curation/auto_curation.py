@@ -5,6 +5,7 @@ from PIL import Image
 from auto_curation.change import *
 from auto_curation.detect import *
 from auto_curation.enhancement import *
+from auto_curation.selection import *
 
 
 def auto_curation(path, progress, status, is_video):
@@ -37,7 +38,7 @@ def auto_curation(path, progress, status, is_video):
     frame = 0
     for result in detection_results:
         for detection in result['detections']:
-            if int(detection["category"]) == 1:  # 1 -> Animal | 2 -> Person
+            if int(detection["category"]) == 2:  # 1 -> Animal | 2 -> Person
                 frames_with_animals.append(frames_with_movement[frame])
                 detections.append(detection)
                 break
@@ -63,18 +64,8 @@ def auto_curation(path, progress, status, is_video):
     progress.setValue(75)
     status.setText("Status: 4/4 Selecting the frames!")
 
-    count = 0
-    now = datetime.now()
-    timestamp = now.strftime("%d%m%Y%H%M%S")
+    select(enhanced_frames, detections, observation_nums)
 
-    for frame in enhanced_frames:
-        if detections[count]["conf"] > 0.998:
-            im_cvt = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            im = Image.fromarray(im_cvt)
-            im.save("img/observations/" + timestamp + "obs" + str(observation_nums[count]) + "-ACS-" + str(count) + ".jpeg")
-        count += 1
-    del enhanced_frames
-    
     # Return the images.
 
     progress.setValue(100)
@@ -91,7 +82,7 @@ def load_from_video(mov):
         print("Error")
     frames_with_movement = []
     prev_frame = None
-    while cap.isOpened():
+    while cap.isOpened() and saved_frames < 5:
         current_frame += 1
         ret, frame = cap.read()
         if ret is True:
