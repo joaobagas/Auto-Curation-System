@@ -66,8 +66,9 @@ class Ui_Dialog(object):
         self.cancelButton.clicked.connect(Dialog.close)
 
     def on_click_browse(self):
-        files = QFileDialog.getOpenFileNames(None, None, '', 'Media file(*.mp4 *.wmv *.avi *.3gp *.oog *.mpeg *.mp2 '
-                                                             '*.wma *.mp3);;All files(*.*)')
+        # files = QFileDialog.getOpenFileNames(None, None, '', 'Media file(*.mp4 *.wmv *.avi *.3gp *.oog *.mpeg *.mp2 '
+        #                                                      '*.wma *.mp3);;All files(*.*)')
+        files = QFileDialog.getOpenFileNames(None, None, '', 'All files(*.*)')
         fname = ""
         for file in files[0]:
             if fname != "":
@@ -77,14 +78,19 @@ class Ui_Dialog(object):
         self.files = files[0]
 
     def on_click_run(self):
+        videos = ["mp4", "wmv", "avi", "3gp", "oog", "mpeg", "mp2" "wma" "mp3"]
+        images = ["jpeg", "jpg", "png"]
         from auto_curation.auto_curation import auto_curation
         try:
             for file in self.files:
-                # Here I need to check if the file is a folder or a video.
-                if file.endswith(".mp4"):
+                end = file.split(".")[-1]
+                if end in videos:
                     is_video = True
-                else:
+                elif end in images:
                     is_video = False
+                else:
+                    self.statusLabel.setText("Status: There was an error!")
+                    break
 
                 auto_curation(file, self.progressBar, self.statusLabel, is_video)
                 ImageLoader.__new__(ImageLoader).load()
