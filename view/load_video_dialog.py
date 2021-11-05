@@ -66,9 +66,8 @@ class Ui_Dialog(object):
         self.cancelButton.clicked.connect(Dialog.close)
 
     def on_click_browse(self):
-        # files = QFileDialog.getOpenFileNames(None, None, '', 'Media file(*.mp4 *.wmv *.avi *.3gp *.oog *.mpeg *.mp2 '
-        #                                                      '*.wma *.mp3);;All files(*.*)')
-        files = QFileDialog.getOpenFileNames(None, None, '', 'All files(*.*)')
+        files = QFileDialog.getOpenFileNames(None, None, '', 'Video(*.mp4 *.wmv *.avi *.3gp *.oog *.mpeg *.mp2 *.wma '
+                                                             '*.mp3);; Images(*.jpg *.jpeg *.png)')
         fname = ""
         for file in files[0]:
             if fname != "":
@@ -85,15 +84,13 @@ class Ui_Dialog(object):
             for file in self.files:
                 end = file.split(".")[-1]
                 if end in videos:
-                    is_video = True
+                    auto_curation(file, self.progressBar, self.statusLabel, True)
                 elif end in images:
-                    is_video = False
-                else:
-                    self.statusLabel.setText("Status: There was an error!")
+                    auto_curation(self.files, self.progressBar, self.statusLabel, False)
                     break
-
-                auto_curation(file, self.progressBar, self.statusLabel, is_video)
-                ImageLoader.__new__(ImageLoader).load()
+                else:
+                    break
+            ImageLoader.__new__(ImageLoader).load()
         except:
             self.statusLabel.setText("Status: There was an error!")
 

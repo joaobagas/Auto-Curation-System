@@ -109,10 +109,10 @@ def load_from_video(mov):
     return observation_nums, frames_with_movement
 
 
-def load_from_folder(path):
+def load_from_folder(paths):
     images = []
-    for filename in os.listdir(path):
-        img = cv2.imread(os.path.join(path, filename))
+    for path in paths:
+        img = cv2.imread(path)
         if img is not None:
             images.append(img)
     return images
