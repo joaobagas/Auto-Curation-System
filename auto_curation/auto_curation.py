@@ -55,17 +55,17 @@ def auto_curation(path, progress, status, is_video):
     progress.setValue(50)
     status.setText("Status: 3/4 editing images!")
 
-    enhanced_frames = []
-    for frame in frames_with_animals:
-        enhanced_frames.append(enhance_brightness_and_contrast(frame))
-    del frames_with_animals
+    #enhanced_frames = []
+    #for frame in frames_with_animals:
+    #    enhanced_frames.append(enhance_brightness_and_contrast(frame))
+    #del frames_with_animals
 
     # Image selection - Here we are going to use the model's certainty to get the best photos.
 
     progress.setValue(75)
     status.setText("Status: 4/4 Selecting the frames!")
 
-    select(enhanced_frames, detections, observation_nums)
+    select(frames_with_animals, detections, observation_nums)
 
     # Return the images.
 
@@ -104,7 +104,6 @@ def load_from_video(mov):
             break
     cap.release()
     cv2.destroyAllWindows()
-    print("Frames with motion: " + str(saved_frames))
 
     return observation_nums, frames_with_movement
 

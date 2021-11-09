@@ -1,4 +1,5 @@
 from datetime import datetime
+from auto_curation.enhancement import enhance_brightness_and_contrast
 
 import cv2
 from PIL import Image
@@ -6,14 +7,17 @@ from PIL import Image
 
 def select(enhanced_frames, results, observation_nums):
     scores = []
+
     # Use the blur method to get the sharpest images.
     for frame in enhanced_frames:
         scores.append(blur_selection(frame))
 
     # Use the confidence method to get the easier to detect images and the bbox method to get the biggest images.
+    # Max score 5 000
+
     i = 0
     for result in results:
-        scores[i] += int(result["conf"]) * 100
+        scores[i] += int(result["conf"]) * 5000
         scores[i] += int(bbox_selection(result))
         i += 1
 
@@ -21,6 +25,7 @@ def select(enhanced_frames, results, observation_nums):
     save(enhanced_frames, indexes, observation_nums)
 
 
+# Max score = 2 500
 def blur_selection(img1):
     pixel_change = 5
     img1 = cv2.resize(img1, (500, 500))
@@ -32,29 +37,25 @@ def blur_selection(img1):
         for pixel in row:
             if pixel[0] > pixel_change and pixel[1] > pixel_change and pixel[2] > pixel_change:
                 count1 += 1
-    return count1
+    return count1 / 100
 
 
+# Max score 2 500 there is a bug in the bbox
 def bbox_selection(detection):
     bbox = detection['bbox']
-    x = abs(bbox[3] - bbox[1])
-    y = abs(bbox[2] - bbox[0])
-    return x * y * 100
+    x = abs(bbox[3] - bbox[0])
+    y = abs(bbox[2] - bbox[1])
+    return x * y * 2500
 
 
 def select_highest_values(array):
-    highest = 0
+    highest = max(array)
     index = 0
     indexes = []
     for val in array:
-        print(str(val))
-        if val > (highest + 1000):
-            indexes.clear()
+        if val >= (highest - 500):
             indexes.append(index)
-        elif val < (highest - 1000):
-            pass
-        else:
-            indexes.append(index)
+        index += 1
     return indexes
 
 
@@ -64,6 +65,7 @@ def save(enhanced_frames, indexes, observation_nums):
     count = 0
     for frame in enhanced_frames:
         if count in indexes:
+            frame = enhance_brightness_and_contrast(frame)
             im_cvt = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             im = Image.fromarray(im_cvt)
             im.save(
