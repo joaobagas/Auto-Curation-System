@@ -39,7 +39,7 @@ def auto_curation(path, progress, status, is_video):
     frame = 0
     for result in detection_results:
         for detection in result['detections']:
-            if int(detection["category"]) == 1:  # 1 -> Animal | 2 -> Person
+            if int(detection["category"]) == 1 and detection["conf"] > 0.900:  # 1 -> Animal | 2 -> Person
                 frames_with_animals.append(frames_with_movement[frame])
                 detections.append(detection)
                 break
@@ -110,8 +110,10 @@ def load_from_video(mov):
 
 def load_from_folder(paths):
     images = []
+    obs = []
     for path in paths:
         img = cv2.imread(path)
         if img is not None:
             images.append(img)
-    return images
+            obs.append(0)
+    return obs, images

@@ -91,8 +91,8 @@ class Ui_Dialog(object):
                 else:
                     break
             ImageLoader.__new__(ImageLoader).load()
-        except:
-            self.statusLabel.setText("Status: There was an error!")
+        except Exception as e:
+            self.statusLabel.setText("Status: There was an error! " + e)
 
     def on_click_play(self):
         if self.files:

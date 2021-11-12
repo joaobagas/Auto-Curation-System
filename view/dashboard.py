@@ -27,9 +27,9 @@ class Ui_MainWindow(object):
         self.imageView.setPixmap(QtGui.QPixmap("img/black_image.jpg"))
         self.imageView.setObjectName("imageView")
         self.imageView.setScaledContents(True)
-        self.trainButton = QtWidgets.QPushButton(self.centralwidget)
-        self.trainButton.setGeometry(QtCore.QRect(10, 410, 71, 23))
-        self.trainButton.setObjectName("trainButton")
+        # self.trainButton = QtWidgets.QPushButton(self.centralwidget)
+        # self.trainButton.setGeometry(QtCore.QRect(10, 410, 71, 23))
+        # self.trainButton.setObjectName("trainButton")
         self.runButton = QtWidgets.QPushButton(self.centralwidget)
         self.runButton.setGeometry(QtCore.QRect(10, 440, 71, 23))
         self.runButton.setObjectName("runButton")
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Dashboard"))
-        self.trainButton.setText(_translate("MainWindow", "Train"))
+        # self.trainButton.setText(_translate("MainWindow", "Train"))
         self.runButton.setText(_translate("MainWindow", "Run"))
         self.forwardArrowButton.setText(_translate("MainWindow", "-->"))
         self.backArrowButton.setText(_translate("MainWindow", "<--"))
@@ -92,7 +92,7 @@ class Ui_MainWindow(object):
 
     def set_buttons(self):
         self.exitButton.clicked.connect(exit)
-        self.trainButton.clicked.connect(self.on_click_train)
+        # self.trainButton.clicked.connect(self.on_click_train)
         self.runButton.clicked.connect(self.on_click_run)
         self.uploadButton.clicked.connect(self.on_click_upload)
         self.editButton.clicked.connect(self.on_click_edit)
@@ -103,11 +103,11 @@ class Ui_MainWindow(object):
         self.rejectButton.clicked.connect(self.on_click_rejectButton)
         self.deleteImageButton.clicked.connect(self.on_click_deleteImageButton)
 
-    def on_click_train(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = load_training_dialog.Ui_Dialog()
-        self.ui.setupUi(self.window)
-        self.window.show()
+    # def on_click_train(self):
+    #     self.window = QtWidgets.QMainWindow()
+    #     self.ui = load_training_dialog.Ui_Dialog()
+    #     self.ui.setupUi(self.window)
+    #     self.window.show()
 
     def on_click_run(self):
         self.window = QtWidgets.QMainWindow()

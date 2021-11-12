@@ -18,11 +18,11 @@ def select(enhanced_frames, results, observation_nums):
     i = 0
     for result in results:
         scores[i] += int(result["conf"]) * 5000
-        scores[i] += int(bbox_selection(result))
+        # scores[i] += int(bbox_selection(result))
         i += 1
 
     indexes = select_highest_values(scores)
-    save(enhanced_frames, indexes, observation_nums)
+    save(enhanced_frames, indexes, observation_nums, results)
 
 
 # Max score = 2 500
@@ -59,15 +59,23 @@ def select_highest_values(array):
     return indexes
 
 
-def save(enhanced_frames, indexes, observation_nums):
+def save(enhanced_frames, indexes, observation_nums, results):
     now = datetime.now()
     timestamp = now.strftime("%d%m%Y%H%M%S")
     count = 0
     for frame in enhanced_frames:
         if count in indexes:
+            draw_bounding_box(frame, results[count])
             frame = enhance_brightness_and_contrast(frame)
             im_cvt = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             im = Image.fromarray(im_cvt)
             im.save(
                 "img/observations/" + timestamp + "obs" + str(observation_nums[count]) + "-ACS-" + str(count) + ".jpeg")
         count += 1
+
+def draw_bounding_box(image, result):
+    bbox = result['bbox']
+    height, width, channels = image.shape
+    p1 = (int(bbox[0]*width), int(bbox[1]*height))
+    p2 = (int(bbox[2]*width), int(bbox[3]*height))
+    cv2.rectangle(image, p1, p2, (0, 0, 255), 2)

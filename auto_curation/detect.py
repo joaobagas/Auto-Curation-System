@@ -3,6 +3,8 @@ import tensorflow as tf
 import time
 import humanfriendly
 from PIL import ImageDraw
+from matplotlib import pyplot as plt
+
 from CameraTraps.detection.run_tf_detector import TFDetector
 
 
@@ -21,13 +23,13 @@ def load_and_run_detector_on_video(model_file, images, output_dir,
     print('Loaded model in {}'.format(humanfriendly.format_timespan(elapsed)))
 
     detection_results = []
-    time_load = []
+    # time_load = []
     time_infer = []
     detection_categories = []
 
     # since we'll be writing a bunch of files to the same folder, rename
     # as necessary to avoid collisions
-    output_file_names = {}
+    # output_file_names = {}
 
     for image in images:
         index += 1
@@ -54,6 +56,7 @@ def translate_to_tf(imgs):
     translated_imgs = []
     for img_bgr in imgs:
         img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+        img_rgb = cv2.resize(img_rgb, (500, 500))
         img_tensor = tf.convert_to_tensor(img_rgb, dtype=tf.float32)
         translated_imgs.append(img_tensor)
     return translated_imgs
