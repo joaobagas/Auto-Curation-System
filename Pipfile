@@ -6,16 +6,18 @@ name = "pypi"
 [packages]
 requests = "*"
 pyqt5 = "*"
-opencv-python = "*"
 pyqt5-plugins = "*"
 pillow = "*"
 moviepy = "*"
 pyinaturalist = "*"
-tensorflow = "*"
 humanfriendly = "*"
-matplotlib = "*"
 pandas = "*"
+matplotlib = "*"
 jsonpickle = "*"
+opencv-python = "*"
+tensorflow = "*"
+torch = "*"
+torchvision = "*"
 
 [dev-packages]
 
