@@ -16,14 +16,20 @@ def load_and_run_detector_on_video(model_file, images, output_dir,
         return
 
     index = 0
+    # load and run detector on target images, and visualize the results
     start_time = time.time()
     tf_detector = TFDetector(model_file)
     elapsed = time.time() - start_time
     print('Loaded model in {}'.format(humanfriendly.format_timespan(elapsed)))
 
     detection_results = []
+    # time_load = []
     time_infer = []
     detection_categories = []
+
+    # since we'll be writing a bunch of files to the same folder, rename
+    # as necessary to avoid collisions
+    # output_file_names = {}
 
     for image in images:
         index += 1
