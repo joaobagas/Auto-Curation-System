@@ -2,7 +2,6 @@ import torch
 from PIL import Image
 from numpy import exp
 from PIL import ImageEnhance
-from torchvision import datasets
 from torchvision.transforms import transforms
 
 from acll_cnn.module import Net

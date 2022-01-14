@@ -1,11 +1,5 @@
-import os
-from datetime import datetime
-
-from PIL import Image
-
 from auto_curation.change import *
 from auto_curation.detect import *
-from auto_curation.enhancement import *
 from auto_curation.selection import *
 
 
@@ -63,7 +57,7 @@ def auto_curation(path, progress, status, is_video):
     progress.setValue(75)
     status.setText("Status: 4/4 Selecting the frames!")
 
-    select(frames_with_animals, detections, observation_nums, True)
+    select(frames_with_animals, detections, observation_nums)
 
     # Return the images.
 

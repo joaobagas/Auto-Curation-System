@@ -15,7 +15,7 @@ from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import QInputDialog
 
 from model import popup_window
-from model.video_cropper import trim
+from model.video_trimmer import trim
 
 
 class Ui_Dialog(object):

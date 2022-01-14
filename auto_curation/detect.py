@@ -3,7 +3,6 @@ import tensorflow as tf
 import time
 import humanfriendly
 from PIL import ImageDraw
-from matplotlib import pyplot as plt
 
 from CameraTraps.detection.run_tf_detector import TFDetector
 

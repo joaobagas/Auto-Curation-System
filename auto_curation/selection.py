@@ -9,7 +9,7 @@ import cv2
 from PIL import Image
 
 
-def select(enhanced_frames, results, observation_nums, use_network):
+def select(enhanced_frames, results, observation_nums):
     scores = []
 
     # Use the blur method to get the sharpest images.
@@ -22,11 +22,10 @@ def select(enhanced_frames, results, observation_nums, use_network):
     i = 0
     for result in results:
         scores[i] += int(result["conf"]) * 5000
-        # scores[i] += int(bbox_selection(result))
         i += 1
 
     indexes = select_highest_values(scores)
-    save(enhanced_frames, indexes, observation_nums, results, use_network)
+    save(enhanced_frames, indexes, observation_nums, results)
 
 
 # Max score = 2 500
@@ -63,7 +62,12 @@ def select_highest_values(array):
     return indexes
 
 
-def save(enhanced_frames, indexes, observation_nums, results, use_network):
+def save(enhanced_frames, indexes, observation_nums, results):
+
+    # Because of bugs in the neural network it comes disabled by default.
+    # You can use enable it here!
+    use_network = False
+
     now = datetime.now()
     timestamp = now.strftime("%d%m%Y%H%M%S")
     count = 0
@@ -82,10 +86,3 @@ def save(enhanced_frames, indexes, observation_nums, results, use_network):
             im.save(
                 "img/observations/" + timestamp + "obs" + str(observation_nums[count]) + "-ACS-" + str(count) + ".jpeg")
         count += 1
-
-def draw_bounding_box(image, result):
-    bbox = result['bbox']
-    height, width, channels = image.shape
-    p1 = (int(bbox[0]*width), int(bbox[1]*height))
-    p2 = (int(bbox[2]*width), int(bbox[3]*height))
-    cv2.rectangle(image, p1, p2, (0, 0, 255), 2)
