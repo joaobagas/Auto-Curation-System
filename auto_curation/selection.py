@@ -1,11 +1,15 @@
 from datetime import datetime
+
+import numpy
+
 from auto_curation.enhancement import enhance_brightness_and_contrast
+from acll_cnn.run import run_cnn
 
 import cv2
 from PIL import Image
 
 
-def select(enhanced_frames, results, observation_nums):
+def select(enhanced_frames, results, observation_nums, use_network):
     scores = []
 
     # Use the blur method to get the sharpest images.
@@ -22,7 +26,7 @@ def select(enhanced_frames, results, observation_nums):
         i += 1
 
     indexes = select_highest_values(scores)
-    save(enhanced_frames, indexes, observation_nums, results)
+    save(enhanced_frames, indexes, observation_nums, results, use_network)
 
 
 # Max score = 2 500
@@ -59,14 +63,20 @@ def select_highest_values(array):
     return indexes
 
 
-def save(enhanced_frames, indexes, observation_nums, results):
+def save(enhanced_frames, indexes, observation_nums, results, use_network):
     now = datetime.now()
     timestamp = now.strftime("%d%m%Y%H%M%S")
     count = 0
+
+    if use_network:
+        enhanced_frames = run_cnn(enhanced_frames)
+    else:
+        enhanced_frames = enhance_brightness_and_contrast(enhanced_frames)
+
     for frame in enhanced_frames:
         if count in indexes:
-            draw_bounding_box(frame, results[count])
-            frame = enhance_brightness_and_contrast(frame)
+            if use_network:
+                frame = numpy.array(frame)
             im_cvt = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             im = Image.fromarray(im_cvt)
             im.save(
