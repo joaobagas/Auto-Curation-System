@@ -14,7 +14,7 @@ def run_cnn(imgs):
     for output in outputs:
         img = change_brightness(Image.fromarray(imgs[c]), float(exp(output.detach().numpy()[0])))
         out_imgs.append(img)
-        c+=1
+        c += 1
     return out_imgs
 
 def run_net(imgs):
@@ -45,9 +45,4 @@ def load():
 
 def change_brightness(img, value):
     image_enhancer = ImageEnhance.Brightness(img)
-    return image_enhancer.enhance(value)
-
-
-def change_contrast(img, value):
-    image_enhancer = ImageEnhance.Contrast(img)
     return image_enhancer.enhance(value)

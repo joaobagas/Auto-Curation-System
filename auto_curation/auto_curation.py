@@ -10,7 +10,7 @@ def auto_curation(path, progress, status, is_video):
     # Motion Detection - Transforms the video into an array of frames with movement.
 
     progress.setValue(0)
-    status.setText("Status: 1/4 Running motion detection!")
+    status.setText("Status: 1/3 Running motion detection!")
 
     if is_video:
         observation_nums, frames_with_movement = load_from_video(path)
@@ -19,8 +19,8 @@ def auto_curation(path, progress, status, is_video):
 
     # Animal Detection - Checks the array of frames for animals and creates another array.
 
-    progress.setValue(25)
-    status.setText("Status: 2/4 Running animal detection!")
+    progress.setValue(33)
+    status.setText("Status: 2/3 Running animal detection!")
 
     frames_with_animals = []
     detections = []
@@ -42,20 +42,11 @@ def auto_curation(path, progress, status, is_video):
                 break
         frame += 1
     del frames_with_movement, detection_results
-    # Image Editing - Edits the images left in the array.
 
-    progress.setValue(50)
-    status.setText("Status: 3/4 editing images!")
+    # Image Selection/Editing - Here we are going to get the best photos and edit the images left in the array.
 
-    #enhanced_frames = []
-    #for frame in frames_with_animals:
-    #    enhanced_frames.append(enhance_brightness_and_contrast(frame))
-    #del frames_with_animals
-
-    # Image selection - Here we are going to use the model's certainty to get the best photos.
-
-    progress.setValue(75)
-    status.setText("Status: 4/4 Selecting the frames!")
+    progress.setValue(67)
+    status.setText("Status: 3/3 Selecting and editing the frames!")
 
     select(frames_with_animals, detections, observation_nums)
 

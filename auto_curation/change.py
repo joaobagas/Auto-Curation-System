@@ -1,11 +1,13 @@
 import cv2
 
 
+# This function subtracts a 50x50 image by the previous one and vice-versa,
+# then it checks if the result has 50 or more pixels that have a value higher than 5 in the RGB channels.
 def detect_change(img1, img2):
     pixel_change = 5
-    threshold = 50 #900
-    x_size = 50 #300
-    y_size = 50 #300
+    threshold = 50
+    x_size = 50
+    y_size = 50
 
     img1 = cv2.resize(img1, (x_size, y_size))
     img2 = cv2.resize(img2, (x_size, y_size))
