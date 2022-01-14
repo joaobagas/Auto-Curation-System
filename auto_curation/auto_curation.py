@@ -23,7 +23,6 @@ def auto_curation(path, progress, status, is_video):
     else:
         observation_nums, frames_with_movement = load_from_folder(path)
 
-
     # Animal Detection - Checks the array of frames for animals and creates another array.
 
     progress.setValue(25)
@@ -49,7 +48,6 @@ def auto_curation(path, progress, status, is_video):
                 break
         frame += 1
     del frames_with_movement, detection_results
-
     # Image Editing - Edits the images left in the array.
 
     progress.setValue(50)
@@ -65,7 +63,7 @@ def auto_curation(path, progress, status, is_video):
     progress.setValue(75)
     status.setText("Status: 4/4 Selecting the frames!")
 
-    select(frames_with_animals, detections, observation_nums)
+    select(frames_with_animals, detections, observation_nums, True)
 
     # Return the images.
 
