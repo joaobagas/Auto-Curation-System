@@ -22,7 +22,7 @@ Open the terminal on the project folder and run the following command:
 
     $ pipenv install
 
-## Installing the extras ##
+## Installing the extras: ##
 
 In Ubuntu, you will have to install the necessary framework to run the video/audio using the following command:
 
