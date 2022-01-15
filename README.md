@@ -8,7 +8,7 @@ The aim of the Auto-Curation System is to develop a system to semi-automatically
 
 ## Installation (requirements.txt): ##
 
-To install using the requirements.txt file you can use the following command
+Open the terminal on the project folder and run the following command:
 
     $ pip3 install -r requirements.txt
 
@@ -18,7 +18,7 @@ To install using the requirements.txt file you can use the following command
 
     $ pip3 install pipenv
 
-  2. Open the terminal on the project folder and run the following command
+  2. Open the terminal on the project folder and run the following command:
 
     $ pipenv install
 
