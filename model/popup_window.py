@@ -1,3 +1,5 @@
+# This is used to generate all the error windows.
+
 from PyQt5.QtWidgets import QMessageBox
 
 

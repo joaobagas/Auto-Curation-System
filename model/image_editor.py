@@ -1,4 +1,4 @@
-# This class holds all the methods to enhance the a give image.
+# This class holds all the methods to enhance any image.
 
 from PIL import Image, ImageEnhance
 

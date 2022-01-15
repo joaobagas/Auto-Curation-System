@@ -6,7 +6,13 @@ Auto-Curation System<a name="TOP"></a>
 
 The aim of the Auto-Curation System is to develop a system to semi-automatically process camera-trap data for uploading to biodiversity websites.
 
-## Installation (Ubuntu): ##
+## Installation (requirements.txt): ##
+
+To install using the requirements.txt file you can use the following command
+
+    $ pip3 install -r requirements.txt
+
+## Installation (Pipenv): ##
 
   1. install pipenv using the following command:
 
@@ -16,10 +22,10 @@ The aim of the Auto-Curation System is to develop a system to semi-automatically
 
     $ pipenv install
 
-  3. Install the necessary framework to run the video/audio using the following command:
+## Installing the extras ##
+
+In Ubuntu, you will have to install the necessary framework to run the video/audio using the following command:
 
     $ sudo apt install gstreamer1.0-libav ubuntu-restricted-extras
 
-## Installation (Windows): ##
-
-The program is being developed in Ubuntu therefore there is still no supported way of installing it on windows.
+On other operating systems you might have to do something similar for the video player to work.
