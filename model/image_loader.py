@@ -118,3 +118,8 @@ class ImageLoader(object):
         else:
             self.current_image = self.obs_images[self.obs_images_pointer]
         return self.current_image
+
+    def is_selected(self):
+        if self.obs_images_pointer == -1:
+            return False
+        return True

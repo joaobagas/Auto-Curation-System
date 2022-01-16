@@ -79,6 +79,11 @@ class Ui_Dialog(object):
     def on_click_run(self):
         videos = ["mp4", "wmv", "avi", "3gp", "oog", "mpeg", "mp2" "wma" "mp3"]
         images = ["jpeg", "jpg", "png"]
+
+        if not self.files:
+            popup_window.warning("No files where selected!")
+            return None
+
         from auto_curation.auto_curation import auto_curation
         try:
             for file in self.files:
@@ -103,7 +108,7 @@ class Ui_Dialog(object):
             self.ui.setup_media(self.files)
             self.window.show()
         else:
-            popup_window.warning("No video was selected!")
+            popup_window.warning("No files were selected!")
 
 
 if __name__ == "__main__":

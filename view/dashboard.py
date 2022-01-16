@@ -52,13 +52,13 @@ class Ui_MainWindow(object):
         self.exitButton.setGeometry(QtCore.QRect(610, 440, 71, 23))
         self.exitButton.setObjectName("exitButton")
         self.uploadButton = QtWidgets.QPushButton(self.centralwidget)
-        self.uploadButton.setGeometry(QtCore.QRect(270, 410, 71, 23))
+        self.uploadButton.setGeometry(QtCore.QRect(10, 410, 71, 23)) # (10, 440, 71, 23)
         self.uploadButton.setObjectName("uploadButton")
         self.previousObsButton = QtWidgets.QPushButton(self.centralwidget)
         self.previousObsButton.setGeometry(QtCore.QRect(180, 410, 81, 23))
         self.previousObsButton.setObjectName("previousObsButton")
         self.rejectButton = QtWidgets.QPushButton(self.centralwidget)
-        self.rejectButton.setGeometry(QtCore.QRect(350, 410, 71, 23))
+        self.rejectButton.setGeometry(QtCore.QRect(270, 410, 151, 23))
         self.rejectButton.setObjectName("rejectButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -75,7 +75,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Dashboard"))
-        # self.trainButton.setText(_translate("MainWindow", "Train"))
         self.runButton.setText(_translate("MainWindow", "Run"))
         self.forwardArrowButton.setText(_translate("MainWindow", "-->"))
         self.backArrowButton.setText(_translate("MainWindow", "<--"))
@@ -85,7 +84,7 @@ class Ui_MainWindow(object):
         self.exitButton.setText(_translate("MainWindow", "Exit"))
         self.uploadButton.setText(_translate("MainWindow", "Upload"))
         self.previousObsButton.setText(_translate("MainWindow", "Prev. obs."))
-        self.rejectButton.setText(_translate("MainWindow", "Reject"))
+        self.rejectButton.setText(_translate("MainWindow", "Reject Observation"))
 
     def set_buttons(self):
         self.exitButton.clicked.connect(exit)
@@ -106,6 +105,9 @@ class Ui_MainWindow(object):
         self.window.show()
 
     def on_click_upload(self):
+        if not ImageLoader.__new__(ImageLoader).is_selected():
+            popup_window.warning("No image/observation selected!")
+            return None
         self.window = QtWidgets.QMainWindow()
         self.ui = upload_dialog.Ui_Dialog()
         self.ui.setupUi(self.window)
@@ -142,6 +144,9 @@ class Ui_MainWindow(object):
 
 
     def on_click_edit(self):
+        if not ImageLoader.__new__(ImageLoader).is_selected():
+            popup_window.warning("No image/observation selected!")
+            return None
         self.window = QtWidgets.QMainWindow()
         self.ui = edit_image.Ui_Dialog()
         self.ui.setup_editor(ImageLoader.__new__(ImageLoader).current_image, self.imageView)
