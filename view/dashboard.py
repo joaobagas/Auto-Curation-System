@@ -45,9 +45,6 @@ class Ui_MainWindow(object):
         self.nextObsButton = QtWidgets.QPushButton(self.centralwidget)
         self.nextObsButton.setGeometry(QtCore.QRect(430, 410, 81, 23))
         self.nextObsButton.setObjectName("nextObsButton")
-        # self.editButton = QtWidgets.QPushButton(self.centralwidget)
-        # self.editButton.setGeometry(QtCore.QRect(610, 410, 71, 23))
-        # self.editButton.setObjectName("editButton")
         self.exitButton = QtWidgets.QPushButton(self.centralwidget)
         self.exitButton.setGeometry(QtCore.QRect(610, 440, 71, 23))
         self.exitButton.setObjectName("exitButton")
@@ -64,6 +61,12 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 687, 21))
         self.menubar.setObjectName("menubar")
+
+        # The edit button was commented out but is fully functional!
+        # self.editButton = QtWidgets.QPushButton(self.centralwidget)
+        # self.editButton.setGeometry(QtCore.QRect(610, 410, 71, 23))
+        # self.editButton.setObjectName("editButton")
+
         MainWindow.setMenuBar(self.menubar)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -80,23 +83,23 @@ class Ui_MainWindow(object):
         self.backArrowButton.setText(_translate("MainWindow", "<--"))
         self.deleteImageButton.setText(_translate("MainWindow", "Delete Image"))
         self.nextObsButton.setText(_translate("MainWindow", "Next obs."))
-        # self.editButton.setText(_translate("MainWindow", "Edit"))
         self.exitButton.setText(_translate("MainWindow", "Exit"))
         self.uploadButton.setText(_translate("MainWindow", "Upload"))
         self.previousObsButton.setText(_translate("MainWindow", "Prev. obs."))
         self.rejectButton.setText(_translate("MainWindow", "Reject Observation"))
+        # self.editButton.setText(_translate("MainWindow", "Edit"))
 
     def set_buttons(self):
         self.exitButton.clicked.connect(exit)
         self.runButton.clicked.connect(self.on_click_run)
         self.uploadButton.clicked.connect(self.on_click_upload)
-        # self.editButton.clicked.connect(self.on_click_edit)
         self.previousObsButton.clicked.connect(self.on_click_previousObsButton)
         self.nextObsButton.clicked.connect(self.on_click_nextObsButton)
         self.backArrowButton.clicked.connect(self.on_click_backArrowButton)
         self.forwardArrowButton.clicked.connect(self.on_click_forwardArrowButton)
         self.rejectButton.clicked.connect(self.on_click_rejectButton)
         self.deleteImageButton.clicked.connect(self.on_click_deleteImageButton)
+        # self.editButton.clicked.connect(self.on_click_edit)
 
     def on_click_run(self):
         self.window = QtWidgets.QMainWindow()
@@ -141,7 +144,6 @@ class Ui_MainWindow(object):
             self.imageView.setPixmap(QtGui.QPixmap(ImageLoader.__new__(ImageLoader).delete_photo()))
         except:
             popup_window.warning("The was an error deleting the image!")
-
 
     def on_click_edit(self):
         if not ImageLoader.__new__(ImageLoader).is_selected():
